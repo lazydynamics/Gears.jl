@@ -1,10 +1,10 @@
 ```@meta
-CurrentModule = PkgName
+CurrentModule = EnvironmentEngine
 ```
 
-# PkgName
+# EnvironmentEngine
 
-Documentation for [PkgName](https://github.com/username/PkgName.jl).
+Documentation for [EnvironmentEngine](https://github.com/username/EnvironmentEngine.jl).
 
 
 ```@index

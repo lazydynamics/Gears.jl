@@ -1,4 +1,4 @@
-using PkgName
+using EnvironmentEngine
 using BenchmarkTools
 
 SUITE = BenchmarkGroup()

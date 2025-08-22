@@ -1,12 +1,12 @@
-using PkgName
+using EnvironmentEngine
 using Test
 using Aqua
 using JET
 using TestItemRunner
 
-@testset "PkgName.jl" begin
+@testset "EnvironmentEngine.jl" begin
     @testset "Code quality (Aqua.jl)" begin
-        Aqua.test_all(PkgName)
+        Aqua.test_all(EnvironmentEngine)
     end
 
     @testset "Code linting (JET.jl)" begin

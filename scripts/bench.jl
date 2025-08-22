@@ -1,4 +1,4 @@
-using PkgName
+using EnvironmentEngine
 using ArgParse
 using BenchmarkTools
 using PkgBenchmark
@@ -26,7 +26,7 @@ if !isnothing(branch)
     )
     export_markdown(joinpath(outputdir, "benchmark_vs_$(name)_result.md"), result)
 else
-    result = PkgBenchmark.benchmarkpkg(PkgName; retune = true)
+    result = PkgBenchmark.benchmarkpkg(EnvironmentEngine; retune = true)
     export_markdown(joinpath(outputdir, "benchmark_$(now()).md"), result)
     export_markdown(joinpath(outputdir, "last.md"), result)
 end

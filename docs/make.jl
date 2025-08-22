@@ -1,16 +1,16 @@
-using PkgName
+using EnvironmentEngine
 using Documenter
 
-DocMeta.setdocmeta!(PkgName, :DocTestSetup, :(using PkgName); recursive = true)
+DocMeta.setdocmeta!(EnvironmentEngine, :DocTestSetup, :(using EnvironmentEngine); recursive = true)
 
 makedocs(;
-    modules = [PkgName],
-    authors = "Your Name <your.email@example.com> and contributors",
-    sitename = "PkgName.jl",
+    modules = [EnvironmentEngine],
+    authors = "lazydynamics and contributors",
+    sitename = "EnvironmentEngine.jl",
     format = Documenter.HTML(;
-        canonical = "https://username.github.io/PkgName.jl", edit_link = "main", assets = String[]
+        canonical = "https://lazydynamics.github.io/EnvironmentEngine.jl", edit_link = "main", assets = String[]
     ),
     pages = ["Home" => "index.md"]
 )
 
-deploydocs(; repo = "github.com/username/PkgName.jl", devbranch = "main")
+deploydocs(; repo = "github.com/lazydynamics/EnvironmentEngine.jl", devbranch = "main")

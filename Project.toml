@@ -1,6 +1,6 @@
-name = "PkgName"
-uuid = "69a11d22-7c62-4348-b0c8-57c08a1b1a46"
-authors = ["PLACEHOLDERNAME_CHANGE_PROJECT_TOML_LINE_3"]
+name = "EnvironmentEngine"
+uuid = "12b47476-e81a-4b1e-bd5d-7199c2c66cc7"
+authors = ["lazydynamics"]
 version = "1.0.0-DEV"
 
 [compat]
