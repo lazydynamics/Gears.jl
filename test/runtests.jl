@@ -10,7 +10,7 @@ using TestItemRunner
     end
 
     @testset "Code linting (JET.jl)" begin
-        JET.test_package(PkgName; target_defined_modules = true)
+        JET.test_package(EnvironmentEngine; target_defined_modules = true)
     end
 
     TestItemRunner.@run_package_tests()
