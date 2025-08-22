@@ -3,21 +3,30 @@ using Unitful
 abstract type Scheduler end
 
 """
-    schedule!(scheduler::Scheduler, task::Task)
+    schedule!(scheduler::Scheduler, task::ScheduledTask)
 
 Register a task with the scheduler to run at the specified period.
 """
-function schedule!(scheduler::Scheduler, task::Task)
+function schedule!(scheduler::Scheduler, task::ScheduledTask)
     throw(NotImplementedError("`schedule!` is not implemented for $(typeof(scheduler))"))
 end
 
 """
-    run!(scheduler::Scheduler)
+    run!(scheduler::Scheduler, t)
+
+Run the scheduler for `t` seconds.
+"""
+function run!(scheduler::Scheduler, t)
+    throw(NotImplementedError("`run!` is not implemented for $(typeof(scheduler))"))
+end
+
+"""
+    cycle!(scheduler)
 
 Execute one cycle of the scheduler, distributing time to all registered tasks.
 """
-function run!(scheduler::Scheduler)
-    throw(NotImplementedError("`run!` is not implemented for $(typeof(scheduler))"))
+function cycle!(scheduler::Scheduler)
+    throw(NotImplementedError("`cycle!` is not implemented for $(typeof(scheduler))"))
 end
 
 """
