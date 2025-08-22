@@ -1,0 +1,173 @@
+name: Initialize Template
+
+on:
+  push:
+    branches:
+      - main
+    # Only run on the first push to the repository after it's created from the template
+
+jobs:
+  initialize:
+    # Skip running on the PackageTemplate repository itself
+    # Also run only if the .init_template_run file doesn't exist
+    if: github.event.repository.name != 'PackageTemplate' && !contains(github.event.head_commit.message, 'Initialize package template')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+      
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.10'
+      
+      - name: Install UUIDs package
+        run: julia -e 'using Pkg; Pkg.add("UUIDs")'
+      
+      - name: Run initialization script
+        run: |
+          julia -e '
+          using UUIDs
+          
+          # Get repository info
+          repo_name = ENV["GITHUB_REPOSITORY"]
+          user_name, repo_name_part = split(repo_name, "/")
+          
+          # Strip .jl suffix for the module name if present
+          pkg_name = endswith(repo_name_part, ".jl") ? repo_name_part[1:end-3] : repo_name_part
+          # Full package name with .jl for GitHub URLs and documentation
+          pkg_name_with_jl = endswith(repo_name_part, ".jl") ? repo_name_part : "$(repo_name_part).jl"
+          
+          println("Repository: $repo_name")
+          println("Owner: $user_name")
+          println("Package name: $pkg_name")
+          println("Package name with .jl: $pkg_name_with_jl")
+          
+          # Generate new UUID
+          new_uuid = string(UUIDs.uuid4())
+          println("Generated UUID: $new_uuid")
+          
+          # Template UUID to replace
+          template_uuid = "69a11d22-7c62-4348-b0c8-57c08a1b1a46"
+          
+          # Update files
+          files_to_update = Dict(
+              "Project.toml" => [
+                  ("name = \"PkgName\"", "name = \"$pkg_name\""),
+                  ("uuid = \"$template_uuid\"", "uuid = \"$new_uuid\""),
+                  ("authors = [\"PLACEHOLDERNAME_CHANGE_PROJECT_TOML_LINE_3\"]", "authors = [\"$user_name\"]")
+              ],
+              "Makefile" => [
+                  ("PLACEHOLDERNAME_CHANGE_MAKEFILE_LINE_22.jl", "$(pkg_name_with_jl)")
+              ],
+              "README.md" => [
+                  ("username/PkgName.jl", "$user_name/$pkg_name_with_jl"),
+                  ("PkgName.jl", "$pkg_name_with_jl"),
+                  ("username.github.io/PkgName.jl", "$user_name.github.io/$pkg_name_with_jl")
+              ],
+              "test/runtests.jl" => [
+                  ("using PkgName", "using $pkg_name"),
+                  ("@testset \"PkgName.jl\"", "@testset \"$pkg_name_with_jl\""),
+                  ("Aqua.test_all(PkgName)", "Aqua.test_all($pkg_name)"),
+                  ("JET.test_package(PkgName)", "JET.test_package($pkg_name)")
+              ],
+              "benchmark/benchmarks.jl" => [
+                  ("using PkgName", "using $pkg_name")
+              ],
+              "docs/make.jl" => [
+                  ("using PkgName", "using $pkg_name"),
+                  ("DocMeta.setdocmeta!(PkgName,", "DocMeta.setdocmeta!($pkg_name,"),
+                  ("modules=[PkgName]", "modules=[$pkg_name]"),
+                  ("modules = [PkgName]", "modules = [$pkg_name]"),
+                  (":(using PkgName)", ":(using $pkg_name)"),
+                  ("sitename=\"PkgName.jl\"", "sitename=\"$pkg_name_with_jl\""),
+                  ("sitename = \"PkgName.jl\"", "sitename = \"$pkg_name_with_jl\""),
+                  ("canonical=\"https://username.github.io/PkgName.jl", "canonical=\"https://$user_name.github.io/$pkg_name_with_jl"),
+                  ("canonical = \"https://username.github.io/PkgName.jl", "canonical = \"https://$user_name.github.io/$pkg_name_with_jl"),
+                  ("repo=\"github.com/username/PkgName.jl\"", "repo=\"github.com/$user_name/$pkg_name_with_jl\""),
+                  ("repo = \"github.com/username/PkgName.jl\"", "repo = \"github.com/$user_name/$pkg_name_with_jl\""),
+                  ("authors = \"Your Name <your.email@example.com> and contributors\"", "authors = \"$user_name and contributors\"")
+              ],
+              "docs/Project.toml" => [
+                  ("PkgName = \"$template_uuid\"", "$pkg_name = \"$new_uuid\"")
+              ],
+              ".github/workflows/CI.yml" => [
+                  ("using PkgName", "using $pkg_name"),
+                  ("DocMeta.setdocmeta!(PkgName,", "DocMeta.setdocmeta!($pkg_name,"),
+                  ("doctest(PkgName)", "doctest($pkg_name)")
+              ],
+              "docs/src/index.md" => [
+                  ("CurrentModule = PkgName", "CurrentModule = $pkg_name"),
+                  ("# PkgName", "# $pkg_name"),
+                  ("Documentation for [PkgName]", "Documentation for [$pkg_name]"),
+                  ("PkgName.jl", "$pkg_name_with_jl"),
+                  ("https://github.com/username/PkgName.jl", "https://github.com/$user_name/$pkg_name_with_jl")
+              ],
+              "scripts/bench.jl" => [
+                  ("using PkgName", "using $pkg_name"),
+                  ("PkgBenchmark.benchmarkpkg(PkgName", "PkgBenchmark.benchmarkpkg($pkg_name"),
+                  ("BenchmarkTools.judge(PkgName", "BenchmarkTools.judge($pkg_name")
+              ]
+          )
+          
+          # Update each file
+          for (file, replacements) in files_to_update
+              if isfile(file)
+                  content = read(file, String)
+                  for (old, new) in replacements
+                      content = replace(content, old => new)
+                  end
+                  write(file, content)
+                  println("✓ Updated $file")
+              else
+                  println("⚠ Warning: $file not found")
+              end
+          end
+          
+          # Rename PkgName.jl
+          src_file = "src/PkgName.jl"
+          if isfile(src_file)
+              dst_file = "src/$(pkg_name).jl"
+              content = read(src_file, String)
+              content = replace(content, "module PkgName" => "module $pkg_name")
+              write(src_file, content)
+              
+              if src_file != dst_file
+                  mv(src_file, dst_file)
+                  println("✓ Renamed $src_file to $dst_file")
+              end
+          else
+              println("⚠ Warning: src/PkgName.jl not found")
+          end
+          '
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+      
+      - name: Configure Git
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+      
+      - name: Create welcome issue
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          title: Welcome to your new Julia package
+          content-filepath: .github/post-init.md
+          labels: documentation
+      
+      # Delete the workflow file itself
+      - name: Delete initialization workflow
+        run: rm -f .github/workflows/initialize_template.yml
+      
+      - name: Commit and push changes
+        run: |
+          git add -A
+          git commit -m "Initialize package template with repository name and new UUID" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }} 
