@@ -2,49 +2,48 @@
 
 ## Overview
 
-The Scheduler implements the mediator pattern, serving as the central coordinator between the clock system and individual tasks. It maintains a single source of truth for time distribution while keeping tasks decoupled from each other and from timekeeping logic.
+The Scheduler implements the mediator pattern, serving as the central coordinator between the clock system and individual jobs. It maintains a single source of truth for time distribution while keeping jobs decoupled from each other and from timekeeping logic.
 
 ## Core Responsibilities
 
 ### Time Management
 - Polls the clock for elapsed time
 - Calculates time deltas between execution cycles
-- Distributes time deltas to all registered tasks
+- Distributes time deltas to all registered jobs
 
-### Task Registry
-- Maintains collection of scheduled tasks
-- Handles task registration and deregistration
-- Manages task lifecycle (enable/disable)
+### Job Registry
+- Maintains collection of scheduled jobs
+- Handles job registration and deregistration
 
 ### Execution Coordination
-- Calls `execute(dt)` on all registered tasks
-- Provides consistent time progression to all tasks
+- Calls `execute(dt)` on all registered jobs
+- Provides consistent time progression to all jobs
 - Maintains execution order and consistency
 
 ## Execution Model
 
 ### Main Execution Loop
-The scheduler polls the clock, calculates time deltas, and distributes them to all registered tasks.
+The scheduler polls the clock, calculates time deltas, and distributes them to all registered jobs.
 
 ### Time Distribution
 - Scheduler receives time delta from clock
-- All tasks receive the same time delta on each cycle
-- Tasks internally decide whether to execute based on their trigger logic
-- No task execution affects timing of other tasks
+- All jobs receive the same time delta on each cycle
+- Jobs internally decide whether to execute based on their trigger logic
+- No job execution affects timing of other jobs
 
-## Task Management
+## Job Management
 
 ### Registration
-Tasks are registered with the scheduler and stored in an internal collection.
+Jobs are registered with the scheduler and stored in an internal collection.
 
 ### Lifecycle Operations
-- **Enable/Disable**: Tasks can be temporarily disabled without removal
-- **Unschedule**: Complete removal of tasks from the system
-- **Reset**: Clear all task state and timing accumulators
+- **Enable/Disable**: Jobs can be temporarily disabled without removal
+- **Unschedule**: Complete removal of jobs from the system
+- **Reset**: Clear all job state and timing accumulators
 
 ## Internal Data Structures
 
-The scheduler maintains internal structures to track registered tasks and their state.
+The scheduler maintains internal structures to track registered jobs and their state.
 
 ## Global Scheduler Instance
 

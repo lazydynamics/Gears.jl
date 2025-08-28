@@ -1,27 +1,27 @@
-# Task System Design
+# Job System Design
 
-## Task Interface
+## Job Interface
 
-All tasks implement a common interface regardless of their trigger mechanism:
+All jobs implement a common interface regardless of their trigger mechanism:
 
 ```julia
-abstract type Task end
+abstract type Job end
 
-function execute(task::Task, dt::Quantity{<:Number, 𝐓})
-    # Must be implemented by concrete task types
+function execute(job::Job, dt::Quantity{<:Number, 𝐓})
+    # Must be implemented by concrete job types
 end
 ```
 
-## Task Types
+## Job Types
 
-### TimedTask
-Tasks that execute at regular time intervals.
+### TimedJob
+Jobs that execute at regular time intervals.
 
 **Behavior:**
 - Maintains internal time accumulator
 - Receives time delta from scheduler on each execution cycle
-- Executes when accumulator reaches execution period threshold
-- Resets accumulator after execution
+- Executes when accumulator reaches execution period threshold (lag >= period)
+- Resets accumulator after execution (lag -= period)
 
 **Example:**
 ```julia
@@ -30,8 +30,8 @@ every(2ms) do dt
 end
 ```
 
-### EventTask
-Tasks that execute when specific conditions are met.
+### EventJob
+Jobs that execute when specific conditions are met.
 
 **Behavior:**
 - Stores hash of observed object state
@@ -46,26 +46,26 @@ every(obs_cache) do obs
 end
 ```
 
-## Task Creation
+## Job Creation
 
-The `every` function provides a unified interface for creating both task types:
+The `every` function provides a unified interface for creating both job types:
 
 - **Time-based**: `every(time_period) do dt ... end`
 - **Event-based**: `every(observable_object) do obj ... end`
 
-Julia's multiple dispatch automatically routes to the appropriate task constructor based on the first argument type.
+Julia's multiple dispatch automatically routes to the appropriate job constructor based on the first argument type.
 
-## Task State Management
+## Job State Management
 
-Tasks are stateless in terms of execution logic but may maintain:
-- Timing accumulators (TimedTask)
-- State hashes (EventTask)
+Jobs are stateless in terms of execution logic but may maintain:
+- Timing accumulators (TimedJob)
+- State hashes (EventJob)
 - Execution periods
 - Enabled/disabled state
 
-## Task Execution Model
+## Job Execution Model
 
-1. **Registration**: Task registers with global scheduler
-2. **Execution Cycle**: Scheduler calls `execute(dt)` on all registered tasks
-3. **Self-Determination**: Each task decides whether to perform work based on its internal logic
-4. **State Update**: Task updates internal state after execution
+1. **Registration**: Job registers with global scheduler
+2. **Execution Cycle**: Scheduler calls `execute(dt)` on all registered jobs
+3. **Self-Determination**: Each job decides whether to perform work based on its internal logic
+4. **State Update**: Job updates internal state after execution

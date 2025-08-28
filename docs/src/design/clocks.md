@@ -66,7 +66,7 @@ All clocks use Unitful.jl for time representation:
 
 ### Clock Switching
 - Scheduler can switch between clock implementations
-- No impact on registered tasks
+- No impact on registered jobs
 - Useful for transitioning between real-time and simulation modes
 
 ## Use Cases

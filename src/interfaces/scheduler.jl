@@ -3,11 +3,11 @@ using Unitful
 abstract type Scheduler end
 
 """
-    schedule!(scheduler::Scheduler, task::ScheduledTask)
+    schedule!(scheduler::Scheduler, job::Job)
 
-Register a task with the scheduler to run at the specified period.
+Register a job with the scheduler to run. Can be implemented for concrete types to define scheduling behavior for different schedulers and job types.
 """
-function schedule!(scheduler::Scheduler, task::ScheduledTask)
+function schedule!(scheduler::Scheduler, job::Job)
     throw(NotImplementedError("`schedule!` is not implemented for $(typeof(scheduler))"))
 end
 

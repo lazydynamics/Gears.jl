@@ -1,9 +1,10 @@
 @testmodule MockSchedulers begin
     using Unitful
+    import EnvironmentEngine: Scheduler
 
     mutable struct MockScheduler <: Scheduler
         clock::Clock
-        tasks::Vector{Task}
+        jobs::Vector{Job}
         time::Quantity{Int64, 𝐓, Unitful.FreeUnits{(s,), 𝐓, nothing}}
     end
 

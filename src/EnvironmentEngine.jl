@@ -13,7 +13,7 @@ include("errors.jl")
 
 include("interfaces/clock.jl")
 include("interfaces/scheduler.jl")
-include("interfaces/task.jl")
+include("interfaces/job.jl")
 
 include("implementations/clocks/machine.jl")
 include("implementations/clocks/virtual.jl")
