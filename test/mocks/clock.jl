@@ -1,13 +1,22 @@
 @testmodule MockClocks begin
-    struct MockClock <: Clock
-        current_time::Quantity{Int64, 𝐓, Unitful.FreeUnits{(s,), 𝐓, nothing}}
+    using Unitful
+    import EnvironmentEngine: Clock, now, set_time!, advance_time!
+
+    mutable struct MockClock <: Clock
+        current_time
     end
 
     function now(clock::MockClock)
         return clock.current_time
     end
 
-    function set_time!(clock::MockClock, time::Quantity{Int64, 𝐓, Unitful.FreeUnits{(s,), 𝐓, nothing}})
+    function set_time!(clock::MockClock, time)
         clock.current_time = time
     end
+
+    function advance_time!(clock::MockClock, dt)
+        clock.current_time += dt
+    end
+
+    MockClock() = MockClock(0.0u"s")
 end

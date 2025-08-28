@@ -1,25 +1,33 @@
 @testmodule MockSchedulers begin
     using Unitful
-    import EnvironmentEngine: Scheduler
+    import EnvironmentEngine: Scheduler, Job, Clock, Ticker
+    import EnvironmentEngine: schedule!, update!, get_clock, progress!, now, advance_to!, can_tick, consume_tick!
 
     mutable struct MockScheduler <: Scheduler
         clock::Clock
         jobs::Vector{Job}
-        time::Quantity{Int64, 𝐓, Unitful.FreeUnits{(s,), 𝐓, nothing}}
+        ticker::Ticker
     end
 
-    function schedule!(scheduler::MockScheduler, task::Task)
-        push!(scheduler.tasks, task)
+    function schedule!(scheduler::MockScheduler, job::Job)
+        push!(scheduler.jobs, job)
     end
 
-    function run!(scheduler::MockScheduler)
-        for task in scheduler.tasks
-            execute(task, 1u"us")
+    function update!(scheduler::MockScheduler)
+        current_time = now(scheduler.clock)
+        advance_to!(scheduler.ticker, current_time)
+
+        while can_tick(scheduler.ticker)
+            for job in scheduler.jobs
+                progress!(job, scheduler.ticker.period)
+            end
+            consume_tick!(scheduler.ticker)
         end
-        scheduler.time += 1u"us"
     end
 
     function get_clock(scheduler::MockScheduler)
         return scheduler.clock
     end
+
+    MockScheduler(clock) = MockScheduler(clock, [], Ticker(1.0u"μs"))
 end

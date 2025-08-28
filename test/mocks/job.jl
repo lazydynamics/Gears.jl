@@ -1,9 +1,12 @@
 @testmodule MockJobs begin
+    import EnvironmentEngine: Job, progress!
+    using Unitful
+    import Unitful: 𝐓
     struct MockJob <: Job
         f
     end
 
-    function execute(job::MockJob, dt::Quantity{<:Number, 𝐓})
+    function progress!(job::MockJob, dt::Quantity{<:Number, 𝐓})
         job.f()
     end
 end
