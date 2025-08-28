@@ -9,7 +9,7 @@ struct Asap end
 
 const asap = Asap()
 
-include("errors.jl")
+include("utils/errors.jl")
 include("utils/ticker.jl")
 
 include("interfaces/job.jl")

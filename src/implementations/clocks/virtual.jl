@@ -1,7 +1,7 @@
 using Unitful
 import Unitful: 𝐓
 
-struct VirtualClock{T} <: Clock
+mutable struct VirtualClock{T} <: Clock
     current_time::T
 end
 
