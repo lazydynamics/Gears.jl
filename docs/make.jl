@@ -16,13 +16,6 @@ makedocs(;
             "Drone Environment" => "api_spec/drone.md",
             "Farama Gym Environment" => "api_spec/farama.md",
             "Multi-Agent Environment" => "api_spec/multi_agent.md"
-        ],
-        "Design Guide" => [
-            "Architecture Overview" => "design/architecture.md",
-            "Task System" => "design/tasks.md",
-            "Scheduler Design" => "design/scheduler.md",
-            "Clock System" => "design/clocks.md",
-            "API Design" => "design/api.md"
         ]
     ]
 )
