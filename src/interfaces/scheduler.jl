@@ -12,28 +12,10 @@ function schedule!(scheduler::Scheduler, job::Job)
 end
 
 """
-    run!(scheduler::Scheduler, t)
+    update!(scheduler::Scheduler)
 
-Run the scheduler for `t` seconds.
+Update the scheduler.
 """
-function run!(scheduler::Scheduler, t)
-    throw(NotImplementedError("`run!` is not implemented for $(typeof(scheduler))"))
-end
-
-"""
-    cycle!(scheduler)
-
-Execute one cycle of the scheduler, distributing time to all registered tasks.
-"""
-function cycle!(scheduler::Scheduler)
-    throw(NotImplementedError("`cycle!` is not implemented for $(typeof(scheduler))"))
-end
-
-"""
-    get_clock(scheduler::Scheduler)
-
-Get the clock associated with the scheduler.
-"""
-function get_clock(scheduler::Scheduler)
-    throw(NotImplementedError("`get_clock` is not implemented for $(typeof(scheduler))"))
+function update!(scheduler::Scheduler)
+    throw(NotImplementedError("`update!` is not implemented for $(typeof(scheduler))"))
 end
