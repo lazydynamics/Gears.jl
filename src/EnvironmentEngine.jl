@@ -20,6 +20,7 @@ include("implementations/clocks/machine.jl")
 include("implementations/clocks/virtual.jl")
 
 include("implementations/jobs/timed.jl")
+include("implementations/jobs/event.jl")
 
 include("implementations/schedulers/ticked.jl")
 
