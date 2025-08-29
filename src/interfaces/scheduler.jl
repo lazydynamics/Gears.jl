@@ -1,5 +1,7 @@
 using Unitful
 
+export schedule!, update!
+
 abstract type Scheduler end
 
 """
