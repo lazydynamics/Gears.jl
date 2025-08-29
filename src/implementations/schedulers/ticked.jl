@@ -10,9 +10,9 @@ A scheduler that processes jobs at regular tick intervals.
 - `jobs::Vector{Job}`: The jobs to be scheduled
 - `ticker::Ticker{T}`: The ticker that manages timing
 """
-struct TickedScheduler{C <: Clock, T} <: Scheduler
+struct TickedScheduler{C <: Clock, T, V} <: Scheduler
     clock::C
-    jobs::Vector{Job}
+    jobs::V
     ticker::Ticker{T}
 end
 
@@ -44,7 +44,7 @@ function update!(scheduler::TickedScheduler)
     advance_to!(scheduler.ticker, current_time)
 
     while can_tick(scheduler.ticker)
-        for job in scheduler.jobs
+        foreach(scheduler.jobs) do job
             progress!(job, scheduler.ticker.period)
         end
         consume_tick!(scheduler.ticker)
@@ -53,4 +53,8 @@ end
 
 function get_period(scheduler::TickedScheduler)
     return scheduler.ticker.period
+end
+
+function compile(scheduler::TickedScheduler)
+    return TickedScheduler(scheduler.clock, (scheduler.jobs...,), scheduler.ticker)
 end

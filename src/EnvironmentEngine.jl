@@ -3,7 +3,7 @@ module EnvironmentEngine
 using Unitful
 import Unitful: s, ms
 
-export every, asap, s, ms
+export every, asap, s, ms, global_clock, global_scheduler, set_global_clock!, set_global_scheduler!
 
 struct Asap end
 
@@ -22,6 +22,8 @@ include("implementations/clocks/virtual.jl")
 include("implementations/jobs/timed.jl")
 
 include("implementations/schedulers/ticked.jl")
+
+include("utils/singletons.jl")
 
 include("every.jl")
 

@@ -13,12 +13,13 @@
 
     @test length(concrete_clock_types) > 0
 
-    for clock_type in concrete_clock_types
+    foreach(concrete_clock_types) do clock_type
         clock = clock_type()
 
         @test hasmethod(now, (typeof(clock),))
         time_value = now(clock)
         @test typeof(time_value) <: Quantity{<:Number, 𝐓}
         @test time_value >= 0u"s"
+        @test @allocated(now(clock)) == 0
     end
 end
