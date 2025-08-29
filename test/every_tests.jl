@@ -42,4 +42,20 @@ end
 
     @test fired
     @test !isready(observations)
+
+    observations = Channel{Int}(10)
+    a = 1
+    b = 2
+    results = []
+    every(observations) do observation
+        push!(results, a + b)
+    end
+
+    @test results == []
+    put!(observations, 1)
+
+    EnvironmentEngine.advance_time!(clock, 1ms)
+    update!(scheduler)
+
+    @test results == [3]
 end
