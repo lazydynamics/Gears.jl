@@ -1,4 +1,4 @@
-import Base.Threads: Atomic, atomic_min!, atomic_max!
+import Base.Threads: Atomic, atomic_xchg!, atomic_or!
 
 struct AsapJob{F} <: Job
     f::F
@@ -7,10 +7,9 @@ end
 
 function progress!(job::AsapJob)
     # TODO: This is actually not thread safe because checking and flipping the flag are two seperate calls.
-    if !job.is_processing[]
-        atomic_max!(job.is_processing, true)
+    if !atomic_or!(job.is_processing, true)
         job.f()
-        atomic_min!(job.is_processing, false)
+        atomic_xchg!(job.is_processing, false)
     end
 end
 
