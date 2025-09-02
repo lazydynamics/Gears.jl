@@ -6,7 +6,6 @@ struct AsapJob{F} <: Job
 end
 
 function progress!(job::AsapJob)
-    # TODO: This is actually not thread safe because checking and flipping the flag are two seperate calls.
     if !atomic_or!(job.is_processing, true)
         job.f()
         atomic_xchg!(job.is_processing, false)
