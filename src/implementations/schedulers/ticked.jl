@@ -22,7 +22,8 @@ end
 Create a new TickedScheduler with the specified clock and tick period.
 """
 function TickedScheduler(clock::Clock, tick_period::T) where {T}
-    TickedScheduler(clock, Job[], Ticker(tick_period, convert(T, now(clock)), zero(tick_period)))
+    tick_period = convert(Quantity{Float64}, tick_period)
+    TickedScheduler(clock, Job[], Ticker(tick_period, convert(typeof(tick_period), now(clock)), zero(tick_period)))
 end
 
 """
