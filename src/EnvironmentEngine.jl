@@ -3,7 +3,7 @@ module EnvironmentEngine
 using Unitful
 import Unitful: s, ms
 
-export every, asap, s, ms, global_clock, global_scheduler, set_global_clock!, set_global_scheduler!
+export asap, s, ms, global_clock, global_scheduler, set_global_clock!, set_global_scheduler!
 
 struct Asap end
 
@@ -28,5 +28,10 @@ include("implementations/schedulers/ticked.jl")
 include("utils/singletons.jl")
 
 include("every.jl")
+include("for_next.jl")
 
+function __init__()
+    set_global_clock!(MachineClock())
+    set_global_scheduler!(TickedScheduler(global_clock(), 1.0u"ms"))
+end
 end

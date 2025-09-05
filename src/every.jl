@@ -1,3 +1,5 @@
+export every
+
 function every(f, scheduler::Scheduler, period::Quantity{<:Number, 𝐓})
     period = convert(typeof(now(global_clock())), period)
     job = TimedJob(f, period)
