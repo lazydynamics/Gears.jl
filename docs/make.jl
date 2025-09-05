@@ -12,6 +12,7 @@ makedocs(;
     ),
     pages = [
         "Home" => "index.md",
+        "Getting Started" => "getting_started.md",
         "API Specifications" => [
             "Drone Environment" => "api_spec/drone.md",
             "Farama Gym Environment" => "api_spec/farama.md",
