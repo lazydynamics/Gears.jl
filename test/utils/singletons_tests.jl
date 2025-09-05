@@ -1,12 +1,12 @@
 @testitem "Global clock can be set and retrieved" begin
-    import EnvironmentEngine: global_clock, set_global_clock!, Clock
+    import EnvironmentEngine: global_clock, set_global_clock!, Clock, MachineClock
 
     # Get the initial clock
     initial_clock = global_clock()
     @test typeof(initial_clock) <: Clock
 
     # Test setting custom clock
-    custom_clock = typeof(initial_clock)()
+    custom_clock = MachineClock()
     set_global_clock!(custom_clock)
     @test global_clock() === custom_clock
 
@@ -41,7 +41,7 @@ end
     initial_clock = global_clock()
 
     # Set a custom clock
-    custom_clock = typeof(initial_clock)()
+    custom_clock = MachineClock()
     set_global_clock!(custom_clock)
 
     # Verify it persists

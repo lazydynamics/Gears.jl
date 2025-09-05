@@ -1,7 +1,7 @@
 @testmodule MockSchedulers begin
     using Unitful
     import EnvironmentEngine: Scheduler, Job, Clock, Ticker
-    import EnvironmentEngine: schedule!, update!, get_clock, progress!, now, advance_to!, can_tick, consume_tick!
+    import EnvironmentEngine: schedule!, update!, progress!, now, advance_to!, can_tick, consume_tick!
 
     mutable struct MockScheduler <: Scheduler
         clock::Clock

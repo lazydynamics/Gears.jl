@@ -1,5 +1,7 @@
 using Unitful
 
+export TickedScheduler
+
 """
     TickedScheduler{C <: Clock, T} <: Scheduler
 

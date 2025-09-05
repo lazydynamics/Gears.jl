@@ -1,7 +1,7 @@
 using Unitful
 import Unitful: 𝐓
 
-export advance_time!
+export VirtualClock, advance_time!, set_time!
 
 mutable struct VirtualClock{T} <: Clock
     current_time::T

@@ -1,5 +1,3 @@
-using Base.ScopedValues
-
 """
     Global singleton objects for the EnvironmentEngine package.
 

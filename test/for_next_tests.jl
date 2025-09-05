@@ -12,6 +12,7 @@
 
     # Test global clock convenience method
     call_count_global = 0
+    resume!(global_clock())
     for_next(1ms) do
         global call_count_global += 1
     end

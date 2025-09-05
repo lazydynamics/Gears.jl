@@ -77,19 +77,17 @@
         scheduler = TickedScheduler(clock, 10ms)
 
         schedule_jobs(scheduler, observations, test_state)
-        @show now(clock)
-        while now(clock) < 50ms
+
+        for_next(clock, 49ms) do
             update!(scheduler)
         end
 
         @test test_state.timed_20ms_count[] == 2
         @test test_state.timed_30ms_count[] == 1
-        @test test_state.asap_count[] == 4 # This is actually 4 because we never hit the 5 second mark
+        @test test_state.asap_count[] == 4
         @test test_state.channel_job_count[] == 2
 
         @test length(test_state.observations_received) == 2
         @test all(obs == 1 for obs in test_state.observations_received)
     end
 end
-
-@testitem "Integration test, Machine clock example" begin end
