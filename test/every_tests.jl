@@ -2,11 +2,8 @@
     clock = MockClocks.MockClock()
     scheduler = MockSchedulers.MockScheduler(clock)
 
-    set_global_clock!(clock)
-    set_global_scheduler!(scheduler)
-
     fired = false
-    every(1ms) do dt
+    every(scheduler, 1ms) do dt
         global fired = true
     end
 
@@ -22,13 +19,10 @@ end
     clock = MockClocks.MockClock()
     scheduler = MockSchedulers.MockScheduler(clock)
 
-    set_global_clock!(clock)
-    set_global_scheduler!(scheduler)
-
     observations = Channel{Int}(10)
 
     fired = false
-    every(observations) do observation
+    every(scheduler, observations) do observation
         global fired = true
     end
 
@@ -47,7 +41,7 @@ end
     a = 1
     b = 2
     results = []
-    every(observations) do observation
+    every(scheduler, observations) do observation
         push!(results, a + b)
     end
 
@@ -58,4 +52,19 @@ end
     update!(scheduler)
 
     @test results == [3]
+end
+
+@testitem "every with asap argument" setup = [MockSchedulers, MockClocks] begin
+    clock = MockClocks.MockClock()
+    scheduler = MockSchedulers.MockScheduler(clock)
+
+    fired = false
+    every(scheduler, asap) do
+        global fired = true
+    end
+
+    @test !fired
+    EnvironmentEngine.advance_time!(clock, 1ms)
+    update!(scheduler)
+    @test fired
 end
