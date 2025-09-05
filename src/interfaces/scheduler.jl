@@ -21,3 +21,5 @@ Update the scheduler.
 function update!(scheduler::Scheduler)
     throw(NotImplementedError("`update!` is not implemented for $(typeof(scheduler))"))
 end
+
+update!() = update!(global_scheduler())

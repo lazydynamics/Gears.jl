@@ -1,6 +1,8 @@
 using Unitful
 import Unitful: 𝐓
 
+export advance_time!
+
 mutable struct VirtualClock{T} <: Clock
     current_time::T
 end

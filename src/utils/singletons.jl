@@ -1,3 +1,5 @@
+using Base.ScopedValues
+
 """
     Global singleton objects for the EnvironmentEngine package.
 
@@ -7,7 +9,7 @@ with specific instances while maintaining type stability through function barrie
 
 # Internal storage for global instances (type-unstable, but isolated)
 const _global_clock = Ref{Any}(MachineClock())
-const _global_scheduler = Ref{Any}(TickedScheduler(MachineClock(), 1.0u"s"))
+const _global_scheduler = Ref{Any}(TickedScheduler(MachineClock(), 1.0u"ms"))
 
 """
     global_clock()

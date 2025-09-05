@@ -1,5 +1,7 @@
 abstract type Clock end
 
+export now
+
 """
     now(clock::Clock)
 
