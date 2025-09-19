@@ -58,7 +58,7 @@ function benchmark_many_jobs()
             end
         end
 
-        advance_time!(clock, 1ms)
+        advance_time!(clock, 10ms)
         update!(scheduler)
     end
 
@@ -69,7 +69,7 @@ function benchmark_many_jobs()
 
         # Jobs that allocate memory
         for i in 1:100
-            every(scheduler, 10ms) do dt
+            every(scheduler, 1ms) do dt
                 rand(100)
             end
         end
