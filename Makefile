@@ -76,10 +76,10 @@ check-format: deps-scripts ## Check Julia code formatting (does not modify files
 	julia --project=scripts/ scripts/formatter.jl
 
 benchmark: deps-scripts ## Run project benchmarks
-	julia --project=scripts/ scripts/bench.jl
+	julia -t 6 --project=scripts/ scripts/bench.jl
 
 benchmark-compare: deps-scripts ## Run project benchmarks with comparison against specified branch
-	julia --project=scripts/ scripts/bench.jl --compare-branch $(branch)
+	julia -t 6 --project=scripts/ scripts/bench.jl --compare-branch $(branch)
 
 clean: docs-clean ## Clean all generated files
 	rm -rf .julia/compiled
