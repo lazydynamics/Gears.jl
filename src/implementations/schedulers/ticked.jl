@@ -1,4 +1,6 @@
 using Unitful
+using Base.Threads
+using Static
 
 export TickedScheduler
 
@@ -12,10 +14,11 @@ A scheduler that processes jobs at regular tick intervals.
 - `jobs::Vector{Job}`: The jobs to be scheduled
 - `ticker::Ticker{T}`: The ticker that manages timing
 """
-struct TickedScheduler{C <: Clock, T, V} <: Scheduler
+struct TickedScheduler{C <: Clock, T, V, B} <: Scheduler
     clock::C
     jobs::V
     ticker::Ticker{T}
+    threading::B
 end
 
 """
@@ -23,9 +26,14 @@ end
 
 Create a new TickedScheduler with the specified clock and tick period.
 """
-function TickedScheduler(clock::Clock, tick_period::T) where {T}
+function TickedScheduler(clock::Clock, tick_period::T; threading::Bool = false) where {T}
     tick_period = convert(Quantity{Float64}, tick_period)
-    TickedScheduler(clock, Job[], Ticker(tick_period, convert(typeof(tick_period), now(clock)), zero(tick_period)))
+    TickedScheduler(
+        clock,
+        Job[],
+        Ticker(tick_period, convert(typeof(tick_period), now(clock)), zero(tick_period)),
+        static(threading)
+    )
 end
 
 """
@@ -47,11 +55,22 @@ function update!(scheduler::TickedScheduler)
     advance_to!(scheduler.ticker, current_time)
 
     while can_tick(scheduler.ticker)
-        foreach(scheduler.jobs) do job
-            progress!(job, scheduler.ticker.period)
-        end
+        _process_jobs!(scheduler)
         consume_tick!(scheduler.ticker)
     end
+end
+
+function _process_jobs!(scheduler::TickedScheduler{C, T, V, <:False}) where {C, T, V}
+    foreach(scheduler.jobs) do job
+        progress!(job, scheduler.ticker.period)
+    end
+end
+
+function _process_jobs!(scheduler::TickedScheduler{C, T, V, <:True}) where {C, T, V}
+    tasks = map(scheduler.jobs) do job
+        @spawn progress!(job, scheduler.ticker.period)
+    end
+    wait.(tasks)
 end
 
 function get_period(scheduler::TickedScheduler)
@@ -59,5 +78,5 @@ function get_period(scheduler::TickedScheduler)
 end
 
 function compile(scheduler::TickedScheduler)
-    return TickedScheduler(scheduler.clock, (scheduler.jobs...,), scheduler.ticker)
+    return TickedScheduler(scheduler.clock, (scheduler.jobs...,), scheduler.ticker, scheduler.threading)
 end

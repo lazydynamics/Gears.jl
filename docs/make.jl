@@ -5,7 +5,7 @@ DocMeta.setdocmeta!(EnvironmentEngine, :DocTestSetup, :(using EnvironmentEngine)
 
 makedocs(;
     modules = [EnvironmentEngine],
-    authors = "lazydynamics and contributors",
+    authors = "Lazy Dynamics and contributors",
     sitename = "EnvironmentEngine.jl",
     format = Documenter.HTML(;
         canonical = "https://lazydynamics.github.io/EnvironmentEngine.jl", edit_link = "main", assets = String[]
