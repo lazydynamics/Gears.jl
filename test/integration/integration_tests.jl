@@ -106,5 +106,9 @@ end
     advance_time!(clock, 1.0s)
     update!(scheduler)
 
+    # This test will fail if a `TickedScheduler` does not wait for all jobs to complete
+    # Essentially if a tick is not atomic (so we can start the next tick before the previous one completes)
+    # then the counter will be less than 1000 because some ticks will still be processing
+    # This is undefined behavior and ticks should be atomic.
     @test counter[] == 1000
 end
