@@ -91,3 +91,20 @@
         @test all(obs == 1 for obs in test_state.observations_received)
     end
 end
+
+@testitem "Multithread TimedJob scheduling" begin
+    import EnvironmentEngine: TimedJob
+    using Base.Threads: Atomic, atomic_add!
+    clock = VirtualClock()
+    scheduler = TickedScheduler(clock, 5.0ms; threading = true)
+
+    counter = Atomic{Int}(0)
+    every(scheduler, 1ms) do dt
+        atomic_add!(counter, 1)
+    end
+
+    advance_time!(clock, 1.0s)
+    update!(scheduler)
+
+    @test counter[] == 1000
+end
