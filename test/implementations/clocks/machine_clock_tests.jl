@@ -15,6 +15,15 @@
     # The clock should start very close to 0 (allowing for small execution time)
     @test @inferred initial_time >= 0u"s"
     @test @inferred initial_time < 0.01u"s"  # Should be less than 10ms
+
+    clock = MachineClock(stretch_factor = 2.0)
+    @test clock.stretch_factor == 2.0
+
+    @test_throws ArgumentError("Stretch factor must be a finite real number") MachineClock(stretch_factor = Inf)
+    @test_throws ArgumentError("Stretch factor must be positive") MachineClock(stretch_factor = -1.0)
+    @test_throws MethodError MachineClock(stretch_factor = "2.0")
+    @test_throws MethodError MachineClock(stretch_factor = nothing)
+    @test_throws ArgumentError("Stretch factor must be a finite real number") MachineClock(stretch_factor = NaN)
 end
 
 @testitem "MachineClock time progression" begin
@@ -36,9 +45,9 @@ end
     after = now(clock)
     time_diff = after - before
 
-    @test time_diff > 0u"s"
-    @test time_diff >= 0.09u"s"  # Allow for some timing precision issues
-    @test time_diff <= 0.2u"s"   # Should not be too much more than sleep time
+    @test time_diff > 0s
+    @test time_diff >= 0.09s  # Allow for some timing precision issues
+    @test time_diff <= 0.2s   # Should not be too much more than sleep time
 end
 
 @testitem "MachineClock pause and resume functionality" begin
@@ -148,4 +157,53 @@ end
     resume!(clock)  # Should be no-op
     time4 = now(clock)
     @test isapprox(time3, time4; atol = 3ms)
+end
+
+@testitem "MachineClock stretch factor" begin
+    import EnvironmentEngine: MachineClock, now, pause!, resume!, reset!
+    using Unitful
+
+    # Test different numeric types and extreme values
+    test_cases = (2.0, Float32(2.0), 2, 22//7, 1e-6, 1e6, 1e-12, 1e12)
+
+    foreach(test_cases) do factor
+        clock = MachineClock(stretch_factor = factor)
+        @test clock.stretch_factor == factor
+
+        # Test basic time progression
+        resume!(clock)
+        sleep(0.1)
+        time_after_sleep = now(clock)
+        expected_time = 0.1u"s" * factor
+
+        # Allow for timing precision issues
+        @test isapprox(time_after_sleep, expected_time; rtol = 0.1)
+
+        # Test pause/resume with stretch factor
+        pause!(clock)
+        time_while_paused = now(clock)
+        sleep(0.1)  # This time should be "lost"
+        @test @inferred now(clock) == time_while_paused
+
+        # Resume and test continued progression
+        resume!(clock)
+        sleep(0.05)
+        time_after_resume = now(clock)
+        expected_progress = 0.05u"s" * factor
+        actual_progress = time_after_resume - time_while_paused
+
+        @test isapprox(actual_progress, expected_progress; rtol = 0.1)
+
+        # Test reset preserves stretch factor
+        reset!(clock)
+        @test clock.stretch_factor == factor
+        @test clock.paused == true
+
+        # Test type stability - now() should return Unitful.Quantity
+        resume!(clock)
+        sleep(0.01)
+        time = now(clock)
+        @test unit(time) == u"s"
+        @test time >= 0u"s"
+    end
 end
