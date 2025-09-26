@@ -50,9 +50,8 @@ workspace "EnvironmentEngine" "Julia package for simulation scheduling" {
         jobs -> environment "Calls" "Agent processes" 
 
         # Component-level relationships
-        every_function -> ticked_scheduler "Creates jobs via" "schedule!()"
-        for_next_function -> ticked_scheduler "Calls" "update!()"
-        update_function -> ticked_scheduler "Calls" "update!()"
+        every_function -> scheduler_interface "Creates jobs via" "schedule!()"
+        update_function -> scheduler_interface "Calls" "update!()"
         
         ticked_scheduler -> clock_interface "Queries time" "now()"
         ticked_scheduler -> job_interface "Executes" "progress!()"
@@ -63,8 +62,11 @@ workspace "EnvironmentEngine" "Julia package for simulation scheduling" {
         virtual_clock -> clock_interface "Implements"
         
         timed_job -> job_interface "Implements"
+        timed_job -> ticker "Uses" "Job timing"
         asap_job -> job_interface "Implements"
         event_job -> job_interface "Implements"
+
+        for_next_function -> clock_interface "Takes as argument" "Which clock for timekeeping"
     }
     
     views {
@@ -95,6 +97,11 @@ workspace "EnvironmentEngine" "Julia package for simulation scheduling" {
         
         component utils {
             include * 
+            autoLayout
+        }
+
+        component api {
+            include *
             autoLayout
         }
         
