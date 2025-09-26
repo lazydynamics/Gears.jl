@@ -59,4 +59,12 @@ benchmark/*.json
 coverage/
 *.lcov
 
+# Structurizr generated files
+docs/structurizr/workspace.json
+docs/structurizr/*.json
+docs/structurizr/*.png
+docs/structurizr/*.svg
+docs/structurizr/*.pdf
+docs/structurizr/.structurizr
+
 **/Manifest.toml
