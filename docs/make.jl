@@ -13,7 +13,20 @@ makedocs(;
     ),
     pages = [
         "Home" => "index.md",
-        "Getting Started" => "getting_started.md",
+        "Quick Start" => "quickstart.md",
+        "Tutorials" => [
+            "Overview" => "tutorials/index.md",
+            "Basic Scheduling" => "tutorials/basic_scheduling.md",
+            "Clocks and Time" => "tutorials/clocks_and_time.md",
+            "Schedulers" => "tutorials/schedulers.md",
+            "Job Types" => "tutorials/job_types.md",
+            "Threading" => "tutorials/threading.md"
+        ],
+        "User Guide" => [
+            "Overview" => "user_guide/index.md",
+            "API Reference" => "user_guide/api_reference.md",
+            "Sharp Bits" => "user_guide/sharp_bits.md"
+        ],
         "Architecture" => [
             "Overview" => "architecture/index.md",
             "C4 Model" => "architecture/c4_model.md",

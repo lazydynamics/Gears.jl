@@ -1,4 +1,4 @@
-# Architecture Overview
+# [Architecture Overview](@id architecture)
 
 EnvironmentEngine is designed around three core abstractions that work together to provide flexible task scheduling in simulation environments:
 
@@ -82,7 +82,7 @@ This creates an asynchronous agent-environment interaction loop where both compo
 ## Architecture Principles
 
 1. **Virtual Time First**: All scheduling operates in virtual time, which can optionally sync with real time
-2. **Job Autonomy**: Jobs decide when to execute based on their own logic and the current time
+2. **Job Autonomy**: Jobs decide when to execute based on their own logic when invoked by the scheduler
 3. **Scheduler Coordination**: The scheduler coordinates between clocks and jobs, calling `progress!()` on jobs at appropriate times
 4. **Multiple Dispatch**: Different job types and schedulers can have specialized behaviors through Julia's multiple dispatch system
 

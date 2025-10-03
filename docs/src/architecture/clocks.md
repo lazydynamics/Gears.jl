@@ -17,19 +17,29 @@ now(clock::Clock) -> Quantity{<:Number, 𝐓}
 ### MachineClock
 Uses system time for real-time simulations.
 
+```@docs; canonical=false
+EnvironmentEngine.MachineClock
+```
+
 ### VirtualClock  
 Controllable time for deterministic simulations.
 
+```@docs; canonical=false
+EnvironmentEngine.VirtualClock
+```
+
 ## Usage Examples
 
-```julia
+```@example clocks
+using EnvironmentEngine
+
+
 # Real-time clock
 clock = MachineClock()
-println(now(clock))  # Current system time
+println(now(clock))  # Machine clock starts paused
 
 # Virtual clock for simulations
 clock = VirtualClock()
-set_time!(clock, 0.0s)
 advance_time!(clock, 50ms)
 println(now(clock))  # 0.05 s
 ```
