@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Sharp Bits · EnvironmentEngine.jl</title><meta name="title" content="Sharp Bits · EnvironmentEngine.jl"/><meta property="og:title" content="Sharp Bits · EnvironmentEngine.jl"/><meta property="twitter:title" content="Sharp Bits · EnvironmentEngine.jl"/><meta name="description" content="Documentation for EnvironmentEngine.jl."/><meta property="og:description" content="Documentation for EnvironmentEngine.jl."/><meta property="twitter:description" content="Documentation for EnvironmentEngine.jl."/><meta property="og:url" content="https://lazydynamics.github.io/EnvironmentEngine.jl/user_guide/sharp_bits/"/><meta property="twitter:url" content="https://lazydynamics.github.io/EnvironmentEngine.jl/user_guide/sharp_bits/"/><link rel="canonical" href="https://lazydynamics.github.io/EnvironmentEngine.jl/user_guide/sharp_bits/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">EnvironmentEngine.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../quickstart/">Quick Start</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../../tutorials/">Overview</a></li><li><a class="tocitem" href="../../tutorials/basic_scheduling/">Basic Scheduling</a></li><li><a class="tocitem" href="../../tutorials/clocks_and_time/">Clocks and Time</a></li><li><a class="tocitem" href="../../tutorials/schedulers/">Schedulers</a></li><li><a class="tocitem" href="../../tutorials/job_types/">Job Types</a></li><li><a class="tocitem" href="../../tutorials/threading/">Threading</a></li></ul></li><li><span class="tocitem">User Guide</span><ul><li><a class="tocitem" href="../">Overview</a></li><li><a class="tocitem" href="../api_reference/">API Reference</a></li><li class="is-active"><a class="tocitem" href>Sharp Bits</a><ul class="internal"><li><a class="tocitem" href="#Job-timing"><span>Job timing</span></a></li><li><a class="tocitem" href="#ASAP-jobs-and-threading"><span>ASAP jobs and threading</span></a></li><li><a class="tocitem" href="#Job-ordering"><span>Job ordering</span></a></li></ul></li></ul></li><li><span class="tocitem">Architecture</span><ul><li><a class="tocitem" href="../../architecture/">Overview</a></li><li><a class="tocitem" href="../../architecture/c4_model/">C4 Model</a></li><li><a class="tocitem" href="../../architecture/clocks/">Clocks</a></li><li><a class="tocitem" href="../../architecture/schedulers/">Schedulers</a></li><li><a class="tocitem" href="../../architecture/jobs/">Jobs</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">User Guide</a></li><li class="is-active"><a href>Sharp Bits</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Sharp Bits</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/lazydynamics/EnvironmentEngine.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/lazydynamics/EnvironmentEngine.jl/blob/main/docs/src/user_guide/sharp_bits.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="user-guide-sharp-bits"><a class="docs-heading-anchor" href="#user-guide-sharp-bits">Sharp Bits</a><a id="user-guide-sharp-bits-1"></a><a class="docs-heading-anchor-permalink" href="#user-guide-sharp-bits" title="Permalink"></a></h1><p>This section covers some of the work in progress in <code>EnvironmentEngine</code>.</p><h2 id="Job-timing"><a class="docs-heading-anchor" href="#Job-timing">Job timing</a><a id="Job-timing-1"></a><a class="docs-heading-anchor-permalink" href="#Job-timing" title="Permalink"></a></h2><p>Let&#39;s look at the following pseudocode:</p><pre><code class="language-julia hljs">using EnvironmentEngine
+
+clock = VirtualClock()
+scheduler = TickedScheduler(clock, 1ms)
+
+
+every(scheduler, 50ms) do dt
+    plan!(agent)
+end
+
+every(scheduler, 5ms) do dt
+    send_action!(agent, environment)
+end
+
+every(scheduler, 3ms) do dt
+    update!(environment)
+end
+
+for_next(clock, 100ms) do
+    update!(scheduler)
+    advance_time!(clock, 10ms)
+end</code></pre><p>Let&#39;s see at what this code is executing, and then let&#39;s look at what we would want it to execute. At time 0ms, all 3 jobs are due and are scheduled. The scheduler will execute the jobs in the order they are scheduled, so the agent will start making a plan. This will take some time, and the next job is called which will send an action to the environment. However, the virtual time is still at 0ms, so, in a realistic environment, the plan that was just made by the agent would not have been available yet. The plan, in a sense, is fetched from the virtual future. Since we do not know (and can not know in advance) how long the planning would take, we have no way of knowing when the actual plan would have become available. </p><h2 id="ASAP-jobs-and-threading"><a class="docs-heading-anchor" href="#ASAP-jobs-and-threading">ASAP jobs and threading</a><a id="ASAP-jobs-and-threading-1"></a><a class="docs-heading-anchor-permalink" href="#ASAP-jobs-and-threading" title="Permalink"></a></h2><p>Currently, when we are multithreading, the scheduler will wait until all jobs within a tick have been completed before advancing to the next tick. Let&#39;s look at the following code:</p><pre><code class="language-julia hljs">using EnvironmentEngine
+
+clock = VirtualClock()
+scheduler = TickedScheduler(clock, 1ms)
+
+every(scheduler, asap) do
+    plan!(agent)
+end
+
+every(scheduler, 10ms) do dt
+    send_action!(agent, environment)
+end
+
+every(scheduler, 3ms) do dt
+    update!(environment)
+end
+
+for_next(clock, 100ms) do
+    update!(scheduler)
+    advance_time!(clock, 10ms)
+end</code></pre><p>With this syntax, the user implies that <code>plan!</code> might take some time to complete, and we would just want to run it as soon as computational resources become available. However, with threading enabled, the scheduler will wait until all jobs within a tick have been completed before advancing to the next tick. This means that the <code>plan!</code> job will be executed at every tick, since the scheduler waits for the <code>plan!</code> job to complete before advancing to the next tick.</p><p>While this is a problem in threading, for single threaded execution, the problem is even worse. Since we only have 1 thread, all computational resources available will be dedicated to the <code>plan!</code> job, meaning that it will always have finished at the end of the tick, and will always be scheduled at the next tick.</p><p>We could solve this with a <code>blocking</code> keyword to the <code>every()</code> function, which would determine if the scheduler waits for a certain job to complete before advancing to the next tick. While this would solve the problem for multithreading, ensuring thread-safety would be a significant challenge, and still would not solve the problem for single threaded execution.</p><h2 id="Job-ordering"><a class="docs-heading-anchor" href="#Job-ordering">Job ordering</a><a id="Job-ordering-1"></a><a class="docs-heading-anchor-permalink" href="#Job-ordering" title="Permalink"></a></h2><p>Currently, the scheduler will execute the jobs in the order they are scheduled. This means that, for the following code:</p><pre><code class="language-julia hljs">using EnvironmentEngine
+
+clock = VirtualClock()
+scheduler = TickedScheduler(clock, 1ms)
+
+events = Channel{String}(Inf)
+every(scheduler, events) do event
+    println(&quot;Event received at $(now(clock))&quot;)
+end
+
+every(scheduler, 10ms) do dt
+    push!(events, &quot;event&quot;)
+end
+
+for_next(clock, 100ms) do
+    update!(scheduler)
+    advance_time!(clock, 10ms)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Event received at 0.02 s
+Event received at 0.03 s
+Event received at 0.04 s
+Event received at 0.05 s
+Event received at 0.060000000000000005 s
+Event received at 0.07 s
+Event received at 0.08 s
+Event received at 0.09 s
+Event received at 0.09999999999999999 s</code></pre><p>and the following code:</p><pre><code class="language-julia hljs">using EnvironmentEngine
+
+clock = VirtualClock()
+scheduler = TickedScheduler(clock, 1ms)
+
+events = Channel{String}(Inf)
+
+every(scheduler, 10ms) do dt
+    push!(events, &quot;event&quot;)
+end
+
+
+every(scheduler, events) do event
+    println(&quot;Event received at $(now(clock))&quot;)
+end
+
+
+for_next(clock, 100ms) do
+    update!(scheduler)
+    advance_time!(clock, 10ms)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Event received at 0.01 s
+Event received at 0.02 s
+Event received at 0.04 s
+Event received at 0.04 s
+Event received at 0.05 s
+Event received at 0.060000000000000005 s
+Event received at 0.07 s
+Event received at 0.09 s
+Event received at 0.09999999999999999 s</code></pre><p>the behavior is different. This is because the scheduler will execute all jobs scheduled within the same tick in the order in which they are defined. This means that, for the first code, first the <code>every(scheduler, events)</code> job will check if there is any new data in <code>events</code>, and afterwards the <code>every(scheduler, 10ms)</code> job will push a new event to <code>events</code>, which will then be processed in the next tick. In the second code, first the <code>every(scheduler, 10ms)</code> job will push a new event to <code>events</code>, after which the <code>every(scheduler, events)</code> job will check if there is any new data in <code>events</code>, which at this point there is, so the event will be consumed within the same tick as it is being pushed.</p><script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+mermaid.initialize({
+    startOnLoad: true,
+    theme: "neutral"
+});
+</script></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../api_reference/">« API Reference</a><a class="docs-footer-nextpage" href="../../architecture/">Overview »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Friday 3 October 2025 12:45">Friday 3 October 2025</span>. Using Julia version 1.11.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

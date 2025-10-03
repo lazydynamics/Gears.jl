@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Threading · EnvironmentEngine.jl</title><meta name="title" content="Threading · EnvironmentEngine.jl"/><meta property="og:title" content="Threading · EnvironmentEngine.jl"/><meta property="twitter:title" content="Threading · EnvironmentEngine.jl"/><meta name="description" content="Documentation for EnvironmentEngine.jl."/><meta property="og:description" content="Documentation for EnvironmentEngine.jl."/><meta property="twitter:description" content="Documentation for EnvironmentEngine.jl."/><meta property="og:url" content="https://lazydynamics.github.io/EnvironmentEngine.jl/tutorials/threading/"/><meta property="twitter:url" content="https://lazydynamics.github.io/EnvironmentEngine.jl/tutorials/threading/"/><link rel="canonical" href="https://lazydynamics.github.io/EnvironmentEngine.jl/tutorials/threading/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">EnvironmentEngine.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../quickstart/">Quick Start</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../">Overview</a></li><li><a class="tocitem" href="../basic_scheduling/">Basic Scheduling</a></li><li><a class="tocitem" href="../clocks_and_time/">Clocks and Time</a></li><li><a class="tocitem" href="../schedulers/">Schedulers</a></li><li><a class="tocitem" href="../job_types/">Job Types</a></li><li class="is-active"><a class="tocitem" href>Threading</a><ul class="internal"><li><a class="tocitem" href="#Threading-Overview"><span>Threading Overview</span></a></li><li><a class="tocitem" href="#Enabling-Threading"><span>Enabling Threading</span></a></li><li><a class="tocitem" href="#Threading-Behavior"><span>Threading Behavior</span></a></li><li><a class="tocitem" href="#Thread-Safety"><span>Thread Safety</span></a></li><li><a class="tocitem" href="#Performance-Considerations"><span>Performance Considerations</span></a></li><li><a class="tocitem" href="#Next-Steps"><span>Next Steps</span></a></li></ul></li></ul></li><li><span class="tocitem">User Guide</span><ul><li><a class="tocitem" href="../../user_guide/">Overview</a></li><li><a class="tocitem" href="../../user_guide/api_reference/">API Reference</a></li><li><a class="tocitem" href="../../user_guide/sharp_bits/">Sharp Bits</a></li></ul></li><li><span class="tocitem">Architecture</span><ul><li><a class="tocitem" href="../../architecture/">Overview</a></li><li><a class="tocitem" href="../../architecture/c4_model/">C4 Model</a></li><li><a class="tocitem" href="../../architecture/clocks/">Clocks</a></li><li><a class="tocitem" href="../../architecture/schedulers/">Schedulers</a></li><li><a class="tocitem" href="../../architecture/jobs/">Jobs</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Tutorials</a></li><li class="is-active"><a href>Threading</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Threading</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/lazydynamics/EnvironmentEngine.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/lazydynamics/EnvironmentEngine.jl/blob/main/docs/src/tutorials/threading.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="tutorial-threading"><a class="docs-heading-anchor" href="#tutorial-threading">Threading</a><a id="tutorial-threading-1"></a><a class="docs-heading-anchor-permalink" href="#tutorial-threading" title="Permalink"></a></h1><p>Learn how to run jobs in parallel using EnvironmentEngine&#39;s threading capabilities. This tutorial covers when and how to use multi-threading effectively.</p><h2 id="Threading-Overview"><a class="docs-heading-anchor" href="#Threading-Overview">Threading Overview</a><a id="Threading-Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Threading-Overview" title="Permalink"></a></h2><p>EnvironmentEngine supports running jobs in multiple threads, allowing you to:</p><ul><li>Execute multiple jobs simultaneously</li><li>Improve performance for CPU-intensive tasks</li><li>Handle concurrent operations efficiently</li></ul><h2 id="Enabling-Threading"><a class="docs-heading-anchor" href="#Enabling-Threading">Enabling Threading</a><a id="Enabling-Threading-1"></a><a class="docs-heading-anchor-permalink" href="#Enabling-Threading" title="Permalink"></a></h2><p>Threading is enabled by passing the <code>threading=true</code> keyword argument to the <code>TickedScheduler</code> constructor.</p><h3 id="Basic-Threading-Setup"><a class="docs-heading-anchor" href="#Basic-Threading-Setup">Basic Threading Setup</a><a id="Basic-Threading-Setup-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Threading-Setup" title="Permalink"></a></h3><pre><code class="language-julia hljs">using EnvironmentEngine
+
+clock = VirtualClock()
+
+# Enable threading in the scheduler
+scheduler = TickedScheduler(clock, 10ms; threading=true)
+
+# Schedule jobs - they can now run in parallel
+every(scheduler, 50ms) do dt
+    println(&quot;Job 1 at $(now(clock))&quot;)
+end
+
+every(scheduler, 50ms) do dt
+    println(&quot;Job 2 at $(now(clock))&quot;)
+end
+
+# Run the threaded scheduler
+for_next(clock, 200ms) do
+    update!(scheduler)
+    advance_time!(clock, 10ms)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Job 1 at 0.05 s
+Job 2 at 0.05 s
+Job 1 at 0.10999999999999999 s
+Job 2 at 0.10999999999999999 s
+Job 1 at 0.16 s
+Job 2 at 0.16 s</code></pre><h2 id="Threading-Behavior"><a class="docs-heading-anchor" href="#Threading-Behavior">Threading Behavior</a><a id="Threading-Behavior-1"></a><a class="docs-heading-anchor-permalink" href="#Threading-Behavior" title="Permalink"></a></h2><h3 id="Job-Execution-Model"><a class="docs-heading-anchor" href="#Job-Execution-Model">Job Execution Model</a><a id="Job-Execution-Model-1"></a><a class="docs-heading-anchor-permalink" href="#Job-Execution-Model" title="Permalink"></a></h3><p>With threading enabled:</p><ul><li>Jobs scheduled for the same tick can run in parallel</li><li>All jobs for a tick must complete before the next tick starts</li><li>This prevents race conditions between ticks</li></ul><pre><code class="language-julia hljs">scheduler = TickedScheduler(clock, 10ms; threading=true)
+
+# These jobs can run in parallel within the same tick
+every(scheduler, 20ms) do dt
+    println(&quot;Job A at $(now(clock))&quot;)
+    sleep(0.005)  # Simulate work
+end
+
+every(scheduler, 20ms) do dt
+    println(&quot;Job B at $(now(clock))&quot;)
+    sleep(0.005)  # Simulate work
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">EnvironmentEngine.TimedJob{Main.var&quot;#9#10&quot;, Unitful.Quantity{Float64, 𝐓, Unitful.FreeUnits{(s,), 𝐓, nothing}}}(Main.var&quot;#9#10&quot;(), EnvironmentEngine.Ticker{Unitful.Quantity{Float64, 𝐓, Unitful.FreeUnits{(s,), 𝐓, nothing}}}(0.02 s, 0.0 s, 0.0 s))</code></pre><h2 id="Thread-Safety"><a class="docs-heading-anchor" href="#Thread-Safety">Thread Safety</a><a id="Thread-Safety-1"></a><a class="docs-heading-anchor-permalink" href="#Thread-Safety" title="Permalink"></a></h2><p>Thread safety is a highly complex topic, hence we will repeat the same warning as is in the <a href="https://docs.julialang.org/en/v1/manual/multi-threading/#Data-race-freedom">Julia documentation</a>:</p><div class="admonition is-danger" id="Data-Race-Safety-is-Your-Responsibility-b54ccc766d3890b5"><header class="admonition-header">Data Race Safety is Your Responsibility<a class="admonition-anchor" href="#Data-Race-Safety-is-Your-Responsibility-b54ccc766d3890b5" title="Permalink"></a></header><div class="admonition-body"><p>You are entirely responsible for ensuring that your program is data-race free, and nothing promised here can be assumed if you do not observe that requirement. The observed results may be highly unintuitive.</p><p>If data-races are introduced, Julia is not memory safe. Be very careful about reading any data if another thread might write to it, as it could result in segmentation faults or worse.</p></div></div><p>When accessing a mutable state from multiple jobs, it is the user&#39;s responsibility to ensure that the state is thread-safe and ensure and appropriate locking mechanism is used.</p><h3 id="Unsafe-Patterns"><a class="docs-heading-anchor" href="#Unsafe-Patterns">Unsafe Patterns</a><a id="Unsafe-Patterns-1"></a><a class="docs-heading-anchor-permalink" href="#Unsafe-Patterns" title="Permalink"></a></h3><p><strong>Shared mutable state:</strong></p><pre><code class="language-julia hljs">clock = VirtualClock()
+scheduler = TickedScheduler(clock, 10ms; threading=true)
+
+# Unsafe: Multiple threads modifying shared state
+shared_counter = Ref(0)
+second_shared_counter = Ref(0)
+
+every(scheduler, 10ms) do dt
+    shared_counter[] += 1  # First access to mutable state
+end
+
+every(scheduler, 10ms) do dt
+    second_shared_counter[] += shared_counter[]  # Race condition! Second access to mutable state
+end
+
+for_next(clock, 100ms) do
+    update!(scheduler)
+    advance_time!(clock, 10ms)
+end
+println(&quot;shared_counter: $(shared_counter[])&quot;)
+println(&quot;second_shared_counter: $(second_shared_counter[])&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">shared_counter: 9
+second_shared_counter: 45</code></pre><h3 id="Safe-Patterns"><a class="docs-heading-anchor" href="#Safe-Patterns">Safe Patterns</a><a id="Safe-Patterns-1"></a><a class="docs-heading-anchor-permalink" href="#Safe-Patterns" title="Permalink"></a></h3><p><strong>Obtain lock before accessing shared state:</strong></p><pre><code class="language-julia hljs">clock = VirtualClock()
+scheduler = TickedScheduler(clock, 10ms; threading=true)
+lck = ReentrantLock()
+
+
+# Unsafe: Multiple threads modifying shared state
+shared_counter = Ref(0)
+second_shared_counter = Ref(0)
+
+every(scheduler, 10ms) do dt
+    lock(lck) do
+        shared_counter[] += 1  # First access to mutable state
+    end
+end
+
+every(scheduler, 10ms) do dt
+    lock(lck) do
+        second_shared_counter[] += shared_counter[]  # Race condition! Second access to mutable state
+    end
+end
+
+for_next(clock, 100ms) do
+    update!(scheduler)
+    advance_time!(clock, 10ms)
+end
+println(&quot;shared_counter: $(shared_counter[])&quot;)
+println(&quot;second_shared_counter: $(second_shared_counter[])&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">shared_counter: 9
+second_shared_counter: 45</code></pre><p><strong>Read-only access:</strong></p><pre><code class="language-julia hljs">scheduler = TickedScheduler(clock, 10ms; threading=true)
+
+# Safe: Multiple threads can read the same data
+every(scheduler, 50ms) do dt
+    value = read_configuration()
+    use_value(value)
+end</code></pre><h2 id="Performance-Considerations"><a class="docs-heading-anchor" href="#Performance-Considerations">Performance Considerations</a><a id="Performance-Considerations-1"></a><a class="docs-heading-anchor-permalink" href="#Performance-Considerations" title="Permalink"></a></h2><h3 id="Threading-Overhead"><a class="docs-heading-anchor" href="#Threading-Overhead">Threading Overhead</a><a id="Threading-Overhead-1"></a><a class="docs-heading-anchor-permalink" href="#Threading-Overhead" title="Permalink"></a></h3><p>Threading has overhead, so it&#39;s only beneficial when:</p><ul><li>Jobs are CPU-intensive</li><li>Multiple jobs run simultaneously</li><li>The work outweighs the threading overhead</li></ul><h2 id="Next-Steps"><a class="docs-heading-anchor" href="#Next-Steps">Next Steps</a><a id="Next-Steps-1"></a><a class="docs-heading-anchor-permalink" href="#Next-Steps" title="Permalink"></a></h2><p>Congratulations! You have completed the tutorial series for <code>EnvironmentEngine</code>. In order to get more information, you can:</p><ul><li><a href="../../user_guide/api_reference/#user-guide-api-reference">API Reference</a> - Complete function and type documentation</li><li><a href="../../user_guide/sharp_bits/#user-guide-sharp-bits">Sharp Bits</a> - Learn about sharp bits</li></ul><script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+mermaid.initialize({
+    startOnLoad: true,
+    theme: "neutral"
+});
+</script></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../job_types/">« Job Types</a><a class="docs-footer-nextpage" href="../../user_guide/">Overview »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Friday 3 October 2025 12:45">Friday 3 October 2025</span>. Using Julia version 1.11.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
