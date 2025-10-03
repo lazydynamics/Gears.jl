@@ -35,6 +35,21 @@ When created, the `MachineClock` is paused by default, and can be resumed and pa
 EnvironmentEngine.MachineClock
 ```
 
+#### Stretch Factor
+The `MachineClock` has a stretch factor, which is a factor by which the time is stretched. This is useful for building real-time applications, where the time is stretched to make the simulation run faster or slower than the real time. The stretch factor is set to 1.0 by default. If the stretch factor is greater than 1.0, the time will progress faster than the real time. For example, if the stretch factor is 2.0, the time will progress twice as fast as real time. You can set the stretch factor when creating the clock:
+
+```@example clocks-machine-fast
+using EnvironmentEngine
+
+clock = MachineClock(stretch_factor = 2.0)
+resume!(clock)
+sleep(1.0)
+pause!(clock)
+println(now(clock))  # Current system time, 2.0 seconds
+```
+
+This is especially useful for debugging, and when you want to test if your agent has more/less computational resources available than on the machine you are running the simulation on.
+
 **Use MachineClock when:**
 - Building real-time applications
 - You want to sync with wall clock time
