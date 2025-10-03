@@ -45,7 +45,3 @@ Pkg.add("EnvironmentEngine")
 - [Getting Started](https://lazydynamics.github.io/EnvironmentEngine.jl/dev/) - Quick setup and basic examples
 - [Tutorials](https://lazydynamics.github.io/EnvironmentEngine.jl/dev/tutorials/) - Step-by-step learning guide
 - [API Reference](https://lazydynamics.github.io/EnvironmentEngine.jl/dev/user_guide/api_reference/) - Complete function documentation
-
-## License
-
-This package is licensed under MIT (see the LICENSE file).
