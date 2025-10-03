@@ -16,7 +16,7 @@ end
 """
     update!(scheduler::Scheduler)
 
-Update the scheduler.
+Update the scheduler to the current time as provided with the associated clock. This distributes time to the scheduled jobs until virtual time has caught up with the current time provided by the clock (optionally also virtual).
 """
 function update!(scheduler::Scheduler)
     throw(NotImplementedError("`update!` is not implemented for $(typeof(scheduler))"))

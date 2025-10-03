@@ -1,0 +1,10 @@
+repos:
+  - repo: local
+    hooks:
+      - id: julia-format
+        name: Julia Code Formatter
+        entry: make format
+        language: system
+        files: \.jl$
+        pass_filenames: false
+        always_run: true
