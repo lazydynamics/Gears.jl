@@ -66,3 +66,56 @@ With this syntax, the user implies that `plan!` might take some time to complete
 While this is a problem in threading, for single threaded execution, the problem is even worse. Since we only have 1 thread, all computational resources available will be dedicated to the `plan!` job, meaning that it will always have finished at the end of the tick, and will always be scheduled at the next tick.
 
 We could solve this with a `blocking` keyword to the `every()` function, which would determine if the scheduler waits for a certain job to complete before advancing to the next tick. While this would solve the problem for multithreading, ensuring thread-safety would be a significant challenge, and still would not solve the problem for single threaded execution.
+
+## Job ordering
+
+Currently, the scheduler will execute the jobs in the order they are scheduled. This means that, for the following code:
+
+```@example sharp-bits-job-ordering-first
+using EnvironmentEngine
+
+clock = VirtualClock()
+scheduler = TickedScheduler(clock, 1ms)
+
+events = Channel{String}(Inf)
+every(scheduler, events) do event
+    println("Event received at $(now(clock))")
+end
+
+every(scheduler, 10ms) do dt
+    push!(events, "event")
+end
+
+for_next(clock, 100ms) do
+    update!(scheduler)
+    advance_time!(clock, 10ms)
+end
+```
+
+and the following code:
+
+```@example sharp-bits-job-ordering-second
+using EnvironmentEngine
+
+clock = VirtualClock()
+scheduler = TickedScheduler(clock, 1ms)
+
+events = Channel{String}(Inf)
+
+every(scheduler, 10ms) do dt
+    push!(events, "event")
+end
+
+
+every(scheduler, events) do event
+    println("Event received at $(now(clock))")
+end
+
+
+for_next(clock, 100ms) do
+    update!(scheduler)
+    advance_time!(clock, 10ms)
+end
+```
+
+the behavior is different. This is because the scheduler will execute all jobs scheduled within the same tick in the order in which they are defined. This means that, for the first code, first the `every(scheduler, events)` job will check if there is any new data in `events`, and afterwards the `every(scheduler, 10ms)` job will push a new event to `events`, which will then be processed in the next tick. In the second code, first the `every(scheduler, 10ms)` job will push a new event to `events`, after which the `every(scheduler, events)` job will check if there is any new data in `events`, which at this point there is, so the event will be consumed within the same tick as it is being pushed.
