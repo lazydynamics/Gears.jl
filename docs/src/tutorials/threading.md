@@ -1,10 +1,10 @@
 # [Threading](@id tutorial-threading)
 
-Learn how to run jobs in parallel using EnvironmentEngine's threading capabilities. This tutorial covers when and how to use multi-threading effectively.
+Learn how to run jobs in parallel using Gears's threading capabilities. This tutorial covers when and how to use multi-threading effectively.
 
 ## Threading Overview
 
-EnvironmentEngine supports running jobs in multiple threads, allowing you to:
+Gears supports running jobs in multiple threads, allowing you to:
 - Execute multiple jobs simultaneously
 - Improve performance for CPU-intensive tasks
 - Handle concurrent operations efficiently
@@ -16,7 +16,7 @@ Threading is enabled by passing the `threading=true` keyword argument to the `Ti
 ### Basic Threading Setup
 
 ```@example threading
-using EnvironmentEngine
+using Gears
 
 clock = VirtualClock()
 
@@ -157,6 +157,6 @@ Threading has overhead, so it's only beneficial when:
 
 ## Next Steps
 
-Congratulations! You have completed the tutorial series for `EnvironmentEngine`. In order to get more information, you can:
+Congratulations! You have completed the tutorial series for `Gears`. In order to get more information, you can:
 - [API Reference](@ref user-guide-api-reference) - Complete function and type documentation
 - [Sharp Bits](@ref user-guide-sharp-bits) - Learn about sharp bits

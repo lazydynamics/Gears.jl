@@ -1,4 +1,4 @@
-using EnvironmentEngine
+using Gears
 using BenchmarkTools
 
 """
@@ -17,11 +17,13 @@ function benchmark_ticker()
 
     suite["ticker_progress"] = @benchmarkable progress!(ticker, 0.5ms) setup = (ticker = Ticker(1.0ms))
 
-    suite["ticker_can_tick"] = @benchmarkable can_tick(ticker) setup =
-        (ticker = Ticker(1.0ms); progress!(ticker, 1.5ms))
+    suite["ticker_can_tick"] = @benchmarkable can_tick(ticker) setup = (
+        ticker = Ticker(1.0ms); progress!(ticker, 1.5ms)
+    )
 
-    suite["ticker_consume_tick"] = @benchmarkable consume_tick!(ticker) setup =
-        (ticker = Ticker(1.0ms); progress!(ticker, 1.5ms))
+    suite["ticker_consume_tick"] = @benchmarkable consume_tick!(ticker) setup = (
+        ticker = Ticker(1.0ms); progress!(ticker, 1.5ms)
+    )
 
     # Ticker reset performance
     suite["ticker_reset"] = @benchmarkable reset!(ticker, 10ms) setup = (ticker = Ticker(1ms))

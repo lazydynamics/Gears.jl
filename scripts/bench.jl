@@ -1,4 +1,4 @@
-using EnvironmentEngine
+using Gears
 using ArgParse
 using BenchmarkTools
 using PkgBenchmark
@@ -26,7 +26,7 @@ if !isnothing(branch)
     )
     export_markdown(joinpath(outputdir, "benchmark_vs_$(name)_result.md"), result)
 else
-    result = PkgBenchmark.benchmarkpkg(EnvironmentEngine; retune = true)
+    result = PkgBenchmark.benchmarkpkg(Gears; retune = true)
     export_markdown(joinpath(outputdir, "benchmark_$(Dates.now()).md"), result)
     export_markdown(joinpath(outputdir, "last.md"), result)
 end

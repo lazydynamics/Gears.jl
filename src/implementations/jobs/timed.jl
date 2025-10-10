@@ -1,6 +1,6 @@
 using Unitful
 import Unitful: Quantity, 𝐓
-import EnvironmentEngine: Ticker
+import Gears: Ticker
 
 """
     TimedJob{F, T}

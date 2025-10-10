@@ -1,6 +1,6 @@
 # [User Guide](@id user-guide)
 
-Welcome to the EnvironmentEngine User Guide! This section provides comprehensive reference documentation for all features and APIs.
+Welcome to the Gears User Guide! This section provides comprehensive reference documentation for all features and APIs.
 
 ## Quick Navigation
 

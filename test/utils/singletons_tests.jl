@@ -1,5 +1,5 @@
 @testitem "Global clock can be set and retrieved" begin
-    import EnvironmentEngine: global_clock, set_global_clock!, Clock, MachineClock
+    import Gears: global_clock, set_global_clock!, Clock, MachineClock
 
     # Get the initial clock
     initial_clock = global_clock()
@@ -18,7 +18,7 @@ end
 @testitem "Global scheduler can be set and retrieved" begin
     using Unitful
 
-    import EnvironmentEngine: global_scheduler, set_global_scheduler!, Scheduler, TickedScheduler, MachineClock
+    import Gears: global_scheduler, set_global_scheduler!, Scheduler, TickedScheduler, MachineClock
 
     # Get the initial scheduler
     initial_scheduler = global_scheduler()
@@ -35,7 +35,7 @@ end
 end
 
 @testitem "Global state persists across function calls" begin
-    import EnvironmentEngine: global_clock, set_global_clock!
+    import Gears: global_clock, set_global_clock!
 
     # Get the initial clock
     initial_clock = global_clock()
@@ -53,7 +53,7 @@ end
 end
 
 @testitem "Setting different types works correctly" begin
-    import EnvironmentEngine: global_clock, set_global_clock!, Clock, VirtualClock, MachineClock
+    import Gears: global_clock, set_global_clock!, Clock, VirtualClock, MachineClock
 
     # Get the initial clock
     initial_clock = global_clock()

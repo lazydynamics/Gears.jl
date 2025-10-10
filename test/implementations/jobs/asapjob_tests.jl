@@ -1,5 +1,5 @@
 @testitem "AsapJob creation" begin
-    import EnvironmentEngine: AsapJob
+    import Gears: AsapJob
 
     function f() end
 
@@ -9,7 +9,7 @@
 end
 
 @testitem "AsapJob execution" begin
-    import EnvironmentEngine: AsapJob, progress!
+    import Gears: AsapJob, progress!
 
     num_calls = 0
     function f()
@@ -26,7 +26,7 @@ end
 end
 
 @testitem "Test multithreaded" setup = [MockSchedulers, MockClocks] begin
-    import EnvironmentEngine: AsapJob, progress!
+    import Gears: AsapJob, progress!
     n_threads = Base.Threads.nthreads()
     if n_threads > 1
         counter = 0

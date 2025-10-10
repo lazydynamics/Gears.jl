@@ -13,7 +13,7 @@ Schedulers are used to orchestrate the execution of jobs in a simulation, and th
 
 ## Default Scheduler
 
-When you use `every()` without specifying a scheduler, EnvironmentEngine uses a default scheduler with the global clock:
+When you use `every()` without specifying a scheduler, Gears uses a default scheduler with the global clock:
 
 ```julia
 # Uses default scheduler with global clock
@@ -29,7 +29,7 @@ However, we recommend passing a scheduler to the `every()` function to get more 
 The `TickedScheduler` is the main scheduler implementation. It divides time into discrete ticks and executes all jobs that are due within each tick. This is based on the [Game Loop Pattern](https://gameprogrammingpatterns.com/game-loop.html). The `TickedScheduler` takes a `Clock` and a tick rate. The `Clock` will be used as an abstract timekeeper, and the tick rate will be used to discretize time.
 
 ```@docs; canonical=false
-EnvironmentEngine.TickedScheduler
+Gears.TickedScheduler
 ```
 
 ### Basic TickedScheduler
@@ -37,7 +37,7 @@ EnvironmentEngine.TickedScheduler
 A `TickedScheduler` can be created by associating a clock and a time interval between ticks. Then, a scheduler is passed to the `every()` function to schedule jobs on that scheduler, and we can use `for_next(clock, duration)` to run the simulation for a specific duration, given the clock.
 
 ```@example ticked_scheduler
-using EnvironmentEngine
+using Gears
 
 clock = VirtualClock()
 

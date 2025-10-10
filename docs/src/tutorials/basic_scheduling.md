@@ -1,10 +1,10 @@
 # [Basic Scheduling](@id tutorial-basic-scheduling)
 
-Learn the fundamentals of job scheduling in EnvironmentEngine. This tutorial covers the core concepts you need to understand how jobs are scheduled and executed.
+Learn the fundamentals of job scheduling in Gears. This tutorial covers the core concepts you need to understand how jobs are scheduled and executed.
 
 ## The Scheduling Model
 
-`EnvironmentEngine` schedules jobs based on the current time as provided by the active clock and scheduler. Jobs are scheduled to run at specific times, whenever an event is triggered, or just as soon as possible. The scheduler determines when each job should execute according to its configuration.
+`Gears` schedules jobs based on the current time as provided by the active clock and scheduler. Jobs are scheduled to run at specific times, whenever an event is triggered, or just as soon as possible. The scheduler determines when each job should execute according to its configuration.
 !!! note
     Before we dive into the basics of scheduling, let's cover the core concepts of clocks and schedulers. These concepts will be covered in more detail in the [Clocks and Time](@ref tutorial-clocks-time) and [Schedulers](@ref tutorial-schedulers) tutorials. For now, it is enough to know that:
     - A `Scheduler` is responsible for keeping a registry of jobs, and calling jobs when they are due.
@@ -50,7 +50,7 @@ update!()  # Process all scheduled jobs
 Let's build a simple simulation that demonstrates basic scheduling:
 
 ```julia
-using EnvironmentEngine
+using Gears
 
 # Schedule a sensor reading every 50ms
 every(50ms) do dt

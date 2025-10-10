@@ -1,8 +1,8 @@
-workspace "EnvironmentEngine" "Julia package for simulation scheduling" {
+workspace "Gears" "Julia package for simulation scheduling" {
     model {
         developer = person "Simulation Developer" "Developers building agent-environment systems"
         
-        envengine = softwareSystem "EnvironmentEngine" "Precise timing control and job scheduling" {
+        envengine = softwareSystem "Gears" "Precise timing control and job scheduling" {
             api = container "Public API" "Julia Module" "every(), for_next(), update!() functions" {
                 every_function = component "every()" "Julia Function" "Job creation function"
                 for_next_function = component "for_next()" "Julia Function" "Time loop function"

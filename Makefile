@@ -19,7 +19,7 @@ endif
 ## Show help for each of the Makefile targets
 help:
 	@echo ''
-	@echo 'EnvironmentEngine.jl Makefile ${YELLOW}targets${RESET}:'
+	@echo 'Gears.jl Makefile ${YELLOW}targets${RESET}:'
 	@echo ''
 	@echo '${GREEN}Documentation commands:${RESET}'
 	@echo '  ${YELLOW}docs${RESET}                 Build the documentation'

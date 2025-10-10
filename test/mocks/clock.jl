@@ -1,6 +1,6 @@
 @testmodule MockClocks begin
     using Unitful
-    import EnvironmentEngine: Clock, now, set_time!, advance_time!
+    import Gears: Clock, now, set_time!, advance_time!
 
     mutable struct MockClock <: Clock
         current_time

@@ -1,15 +1,15 @@
 ```@meta
-CurrentModule = EnvironmentEngine
+CurrentModule = Gears
 ```
 
-# EnvironmentEngine
+# Gears
 
 A Julia package for scheduling tasks in simulation environments with precise timing control.
 
 ## Quick Start
 
 ```julia
-using EnvironmentEngine
+using Gears
 
 # Schedule a task every 200ms
 every(200ms) do dt

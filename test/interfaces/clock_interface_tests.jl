@@ -1,8 +1,8 @@
 @testitem "All clock implementations satisfy Clock interface" begin
-    using EnvironmentEngine
+    using Gears
     using Unitful
     import Unitful: 𝐓
-    import EnvironmentEngine: Clock, now
+    import Gears: Clock, now
     using InteractiveUtils
 
     # Get all concrete subtypes of Clock

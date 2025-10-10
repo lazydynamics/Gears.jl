@@ -1,6 +1,6 @@
 
 @testitem "TimedJob creation" setup = [MockSchedulers, MockClocks] begin
-    import EnvironmentEngine: TimedJob, progress!, get_lag, get_period
+    import Gears: TimedJob, progress!, get_lag, get_period
 
     clock = MockClocks.MockClock()
     scheduler = MockSchedulers.MockScheduler(clock)
@@ -16,7 +16,7 @@
 end
 
 @testitem "TimedJob time progression" setup = [MockSchedulers, MockClocks] begin
-    import EnvironmentEngine: TimedJob, progress!, get_lag, get_period
+    import Gears: TimedJob, progress!, get_lag, get_period
 
     clock = MockClocks.MockClock()
     scheduler = MockSchedulers.MockScheduler(clock)
@@ -32,7 +32,7 @@ end
 end
 
 @testitem "TimedJob execution" setup = [MockSchedulers, MockClocks] begin
-    import EnvironmentEngine: TimedJob, progress!, get_lag, get_period
+    import Gears: TimedJob, progress!, get_lag, get_period
 
     clock = MockClocks.MockClock()
     scheduler = MockSchedulers.MockScheduler(clock)
@@ -56,7 +56,7 @@ end
 end
 
 @testitem "TimedJob scheduling" setup = [MockSchedulers, MockClocks] begin
-    import EnvironmentEngine: schedule!, update!, advance_time!, TimedJob
+    import Gears: schedule!, update!, advance_time!, TimedJob
 
     clock = MockClocks.MockClock()
     scheduler = MockSchedulers.MockScheduler(clock)

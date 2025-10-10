@@ -1,5 +1,5 @@
 """
-    Global singleton objects for the EnvironmentEngine package.
+    Global singleton objects for the Gears package.
 
 This module provides global access to a clock and scheduler that can be configured
 with specific instances while maintaining type stability through function barriers.

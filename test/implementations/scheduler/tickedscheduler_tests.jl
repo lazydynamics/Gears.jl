@@ -1,6 +1,6 @@
 @testitem "TickedScheduler" setup = [MockJobs, MockClocks] begin
     using Unitful
-    import EnvironmentEngine: TickedScheduler, update!, set_time!, advance_time!, schedule!
+    import Gears: TickedScheduler, update!, set_time!, advance_time!, schedule!
 
     @testset "TickedScheduler creation and basic timekeeping" begin
         clock = MockClocks.MockClock()
@@ -57,7 +57,7 @@
 end
 
 @testitem "TickedScheduler with threading enabled" setup = [MockJobs, MockClocks] begin
-    import EnvironmentEngine: TickedScheduler, update!, set_time!, advance_time!, schedule!
+    import Gears: TickedScheduler, update!, set_time!, advance_time!, schedule!
     using Unitful
     using Base.Threads
     if Base.Threads.nthreads() > 1

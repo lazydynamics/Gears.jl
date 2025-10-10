@@ -1,4 +1,4 @@
-using EnvironmentEngine
+using Gears
 using BenchmarkTools
 
 """
@@ -23,8 +23,9 @@ function benchmark_clocks()
     suite["virtual_clock_advance_time"] = @benchmarkable advance_time!(clock, 10ms) setup = (clock = VirtualClock())
 
     # Clock + ticker integration
-    suite["clock_ticker_integration"] = @benchmarkable advance_to!(ticker, now(clock)) setup =
-        (clock = VirtualClock(); ticker = Ticker(1ms))
+    suite["clock_ticker_integration"] = @benchmarkable advance_to!(ticker, now(clock)) setup = (
+        clock = VirtualClock(); ticker = Ticker(1ms)
+    )
 
     return suite
 end

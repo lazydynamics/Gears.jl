@@ -1,5 +1,5 @@
 @testitem "basic for_next functionality" setup = [MockClocks, MockSchedulers] begin
-    import EnvironmentEngine: advance_time!
+    import Gears: advance_time!
     clock = MockClocks.MockClock()
 
     # Test explicit clock usage
@@ -33,7 +33,7 @@
 end
 
 @testitem "for_next timing and duration" setup = [MockClocks, MockSchedulers] begin
-    import EnvironmentEngine: advance_time!
+    import Gears: advance_time!
     clock = MockClocks.MockClock()
 
     # Test duration accuracy
@@ -63,7 +63,7 @@ end
 end
 
 @testitem "for_next integration and error handling" setup = [MockClocks, MockSchedulers] begin
-    import EnvironmentEngine: advance_time!
+    import Gears: advance_time!
     clock = MockClocks.MockClock()
     scheduler = MockSchedulers.MockScheduler(clock)
 

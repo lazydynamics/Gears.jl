@@ -1,4 +1,4 @@
-using EnvironmentEngine
+using Gears
 using BenchmarkTools
 
 """
@@ -23,11 +23,13 @@ function benchmark_job_creation()
     end
 
     # Job scheduling overhead (with setup to isolate the operation)
-    suite["schedule_timed_job"] = @benchmarkable schedule!(scheduler, job) setup =
-        (clock = VirtualClock(); scheduler = TickedScheduler(clock, 1ms); job = TimedJob(x -> nothing, 10ms))
+    suite["schedule_timed_job"] = @benchmarkable schedule!(scheduler, job) setup = (
+        clock = VirtualClock(); scheduler = TickedScheduler(clock, 1ms); job = TimedJob(x -> nothing, 10ms)
+    )
 
-    suite["schedule_asap_job"] = @benchmarkable schedule!(scheduler, job) setup =
-        (clock = VirtualClock(); scheduler = TickedScheduler(clock, 1ms); job = AsapJob(() -> nothing))
+    suite["schedule_asap_job"] = @benchmarkable schedule!(scheduler, job) setup = (
+        clock = VirtualClock(); scheduler = TickedScheduler(clock, 1ms); job = AsapJob(() -> nothing)
+    )
 
     suite["schedule_event_job"] = @benchmarkable schedule!(scheduler, job) setup = (
         clock = VirtualClock();

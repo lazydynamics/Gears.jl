@@ -14,8 +14,8 @@ update!(scheduler::Scheduler)
 ```
 
 ```@docs
-EnvironmentEngine.schedule!
-EnvironmentEngine.update!
+Gears.schedule!
+Gears.update!
 ```
 
 

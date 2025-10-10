@@ -1,6 +1,6 @@
 
 @testitem "EventJob creation" begin
-    import EnvironmentEngine: EventJob
+    import Gears: EventJob
 
     queue = Channel(1)
     function f(object)
@@ -14,7 +14,7 @@
 end
 
 @testitem "EventJob execution" begin
-    import EnvironmentEngine: EventJob, progress!
+    import Gears: EventJob, progress!
 
     queue = Channel(1)
     collection = []
@@ -37,7 +37,7 @@ end
 end
 
 @testitem "EventJob buffered elements" begin
-    import EnvironmentEngine: EventJob, progress!
+    import Gears: EventJob, progress!
 
     c1 = Channel(10)
 
@@ -56,7 +56,7 @@ end
 end
 
 @testitem "EventJob scheduling" setup = [MockSchedulers, MockClocks] begin
-    import EnvironmentEngine: schedule!, update!, advance_time!, EventJob
+    import Gears: schedule!, update!, advance_time!, EventJob
 
     clock = MockClocks.MockClock()
     scheduler = MockSchedulers.MockScheduler(clock)

@@ -1,10 +1,10 @@
-using EnvironmentEngine
-import EnvironmentEngine: Ticker, advance_to!, progress!, can_tick, consume_tick!, reset!
-import EnvironmentEngine: TimedJob, EventJob, AsapJob
+using Gears
+import Gears: Ticker, advance_to!, progress!, can_tick, consume_tick!, reset!
+import Gears: TimedJob, EventJob, AsapJob
 using BenchmarkTools
 
 """
-Main benchmark suite for EnvironmentEngine.
+Main benchmark suite for Gears.
 This file loads all individual benchmark modules and combines them into a single suite.
 """
 

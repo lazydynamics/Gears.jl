@@ -1,12 +1,12 @@
 # [Quick Start](@id quickstart)
 
-Get EnvironmentEngine running in under 5 minutes! This tutorial shows you the simplest way to schedule and execute jobs.
+Get Gears running in under 5 minutes! This tutorial shows you the simplest way to schedule and execute jobs.
 
 ## Installation
 
 ```julia
 using Pkg
-Pkg.add("EnvironmentEngine")
+Pkg.add("Gears")
 ```
 
 ## Your First Scheduled Job
@@ -14,7 +14,7 @@ Pkg.add("EnvironmentEngine")
 Here's the minimal example to get you started:
 
 ```julia
-using EnvironmentEngine
+using Gears
 
 # Schedule a job to run every 200 milliseconds
 every(200ms) do dt

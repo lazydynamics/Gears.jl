@@ -9,7 +9,7 @@
 
     @test !fired
 
-    EnvironmentEngine.advance_time!(clock, 1ms)
+    Gears.advance_time!(clock, 1ms)
     update!(scheduler)
 
     @test fired
@@ -31,7 +31,7 @@ end
 
     @test !fired
 
-    EnvironmentEngine.advance_time!(clock, 1ms)
+    Gears.advance_time!(clock, 1ms)
     update!(scheduler)
 
     @test fired
@@ -48,7 +48,7 @@ end
     @test results == []
     put!(observations, 1)
 
-    EnvironmentEngine.advance_time!(clock, 1ms)
+    Gears.advance_time!(clock, 1ms)
     update!(scheduler)
 
     @test results == [3]
@@ -64,7 +64,7 @@ end
     end
 
     @test !fired
-    EnvironmentEngine.advance_time!(clock, 1ms)
+    Gears.advance_time!(clock, 1ms)
     update!(scheduler)
     @test fired
 end

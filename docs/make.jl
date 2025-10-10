@@ -1,15 +1,15 @@
-using EnvironmentEngine
+using Gears
 using Documenter
 using DocumenterMermaid
 
-DocMeta.setdocmeta!(EnvironmentEngine, :DocTestSetup, :(using EnvironmentEngine); recursive = true)
+DocMeta.setdocmeta!(Gears, :DocTestSetup, :(using Gears); recursive = true)
 
 makedocs(;
-    modules = [EnvironmentEngine],
+    modules = [Gears],
     authors = "Lazy Dynamics and contributors",
-    sitename = "EnvironmentEngine.jl",
+    sitename = "Gears.jl",
     format = Documenter.HTML(;
-        canonical = "https://lazydynamics.github.io/EnvironmentEngine.jl", edit_link = "main", assets = String[]
+        canonical = "https://lazydynamics.github.io/Gears.jl", edit_link = "main", assets = String[]
     ),
     pages = [
         "Home" => "index.md",
@@ -37,4 +37,4 @@ makedocs(;
     ]
 )
 
-deploydocs(; repo = "github.com/lazydynamics/EnvironmentEngine.jl", devbranch = "main")
+deploydocs(; repo = "github.com/lazydynamics/Gears.jl", devbranch = "main")

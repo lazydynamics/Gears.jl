@@ -1,5 +1,5 @@
 @testitem "VirtualClock" begin
-    import EnvironmentEngine: VirtualClock, now, set_time!, advance_time!
+    import Gears: VirtualClock, now, set_time!, advance_time!
     using Unitful
 
     clock = VirtualClock()

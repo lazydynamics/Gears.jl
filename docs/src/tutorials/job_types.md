@@ -1,10 +1,10 @@
 # [Job Types](@id tutorial-job-types)
 
-Jobs represent the actual work to be performed in `EnvironmentEngine`. They are the atomic building blocks created with the `every()` function. On this page we will cover the creation of different types of jobs.
+Jobs represent the actual work to be performed in `Gears`. They are the atomic building blocks created with the `every()` function. On this page we will cover the creation of different types of jobs.
 
 ## Job Types Overview
 
-Currently, `EnvironmentEngine` supports the following job types:
+Currently, `Gears` supports the following job types:
 
 1. **Timed Jobs** - Execute at regular intervals
 2. **ASAP Jobs** - Execute as soon as possible (on every tick)
@@ -17,7 +17,7 @@ Timed jobs execute at regular intervals. They're perfect for periodic tasks like
 ### Basic Timed Jobs
 
 ```@example job_types
-using EnvironmentEngine
+using Gears
 
 clock = VirtualClock()
 scheduler = TickedScheduler(clock, 10ms)
@@ -84,7 +84,7 @@ update!(scheduler)
 You can mix different job types in the same application:
 
 ```@example job_types
-using EnvironmentEngine
+using Gears
 
 clock = VirtualClock()
 scheduler = TickedScheduler(clock, 10ms)

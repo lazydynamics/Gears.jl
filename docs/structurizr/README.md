@@ -1,6 +1,6 @@
-# Structurizr C4 Model for EnvironmentEngine
+# Structurizr C4 Model for Gears
 
-This folder contains the Structurizr DSL definition for EnvironmentEngine's C4 model.
+This folder contains the Structurizr DSL definition for Gears's C4 model.
 
 ## Files
 
@@ -16,11 +16,11 @@ This folder contains the Structurizr DSL definition for EnvironmentEngine's C4 m
    docker run -it --rm -p 8080:8080 -v "$(pwd)/docs/structurizr:/usr/local/structurizr" structurizr/lite
    ```
 3. Open http://localhost:8080 in your browser
-4. You should see the EnvironmentEngine C4 model with interactive zooming!
+4. You should see the Gears C4 model with interactive zooming!
 
 ## What You'll See
 
-- **System Context**: EnvironmentEngine in relation to developers, researchers, agents, and environments
+- **System Context**: Gears in relation to developers, researchers, agents, and environments
 - **Container Level**: Internal modules (API, Scheduler, Clock, Jobs, Utils) with relationships
 - **Interactive Zooming**: Click on containers to drill down into more detail
 - **Auto-layout**: Diagrams are automatically arranged for optimal viewing

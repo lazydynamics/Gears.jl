@@ -1,6 +1,6 @@
 # [Tutorials](@id tutorials)
 
-Welcome to the EnvironmentEngine tutorials! These tutorials will guide you through the core concepts step by step, building your understanding progressively.
+Welcome to the Gears tutorials! These tutorials will guide you through the core concepts step by step, building your understanding progressively.
 
 ## Tutorial Order
 

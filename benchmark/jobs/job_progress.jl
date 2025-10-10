@@ -1,4 +1,4 @@
-using EnvironmentEngine
+using Gears
 using BenchmarkTools
 
 """
@@ -14,8 +14,9 @@ function benchmark_job_progress()
 
     suite["asap_job_progress"] = @benchmarkable progress!(job, 1ms) setup = (job = AsapJob(() -> nothing))
 
-    suite["event_job_progress"] = @benchmarkable progress!(job, 1ms) setup =
-        (channel = Channel{String}(Inf); job = EventJob(x -> nothing, channel); put!(channel, "test_event"))
+    suite["event_job_progress"] = @benchmarkable progress!(job, 1ms) setup = (
+        channel = Channel{String}(Inf); job = EventJob(x -> nothing, channel); put!(channel, "test_event")
+    )
 
     # Job execution with different periods
     for period in [1ms, 10ms, 100ms]

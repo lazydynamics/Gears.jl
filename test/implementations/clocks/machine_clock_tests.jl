@@ -1,5 +1,5 @@
 @testitem "MachineClock constructor" begin
-    import EnvironmentEngine: MachineClock, now, resume!
+    import Gears: MachineClock, now, resume!
     using Unitful
 
     # Test default constructor
@@ -27,7 +27,7 @@
 end
 
 @testitem "MachineClock time progression" begin
-    import EnvironmentEngine: MachineClock, now, resume!
+    import Gears: MachineClock, now, resume!
     using Unitful
 
     clock = MachineClock()
@@ -51,7 +51,7 @@ end
 end
 
 @testitem "MachineClock pause and resume functionality" begin
-    import EnvironmentEngine: MachineClock, now, pause!, resume!
+    import Gears: MachineClock, now, pause!, resume!
     using Unitful
 
     clock = MachineClock()
@@ -85,7 +85,7 @@ end
 end
 
 @testitem "MachineClock multiple pause/resume cycles" begin
-    import EnvironmentEngine: MachineClock, now, pause!, resume!
+    import Gears: MachineClock, now, pause!, resume!
     using Unitful
 
     clock = MachineClock()
@@ -114,7 +114,7 @@ end
 end
 
 @testitem "MachineClock reset functionality" begin
-    import EnvironmentEngine: MachineClock, now, pause!, resume!, reset!
+    import Gears: MachineClock, now, pause!, resume!, reset!
     using Unitful
 
     clock = MachineClock()
@@ -138,7 +138,7 @@ end
 end
 
 @testitem "MachineClock pause/resume edge cases" begin
-    import EnvironmentEngine: MachineClock, now, pause!, resume!
+    import Gears: MachineClock, now, pause!, resume!
     using Unitful
 
     clock = MachineClock()
@@ -160,7 +160,7 @@ end
 end
 
 @testitem "MachineClock stretch factor" begin
-    import EnvironmentEngine: MachineClock, now, pause!, resume!, reset!
+    import Gears: MachineClock, now, pause!, resume!, reset!
     using Unitful
 
     # Test different numeric types and extreme values

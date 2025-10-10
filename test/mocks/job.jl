@@ -1,5 +1,5 @@
 @testmodule MockJobs begin
-    import EnvironmentEngine: Job, progress!
+    import Gears: Job, progress!
     using Unitful
     import Unitful: 𝐓
     using Base.Threads: Atomic

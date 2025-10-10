@@ -1,19 +1,19 @@
 # [C4 Model](@id architecture-c4-model)
 
-This page contains the complete C4 model for EnvironmentEngine, showing the architecture at all levels from system context down to detailed components.
+This page contains the complete C4 model for Gears, showing the architecture at all levels from system context down to detailed components.
 
 ## Level 1: System Context
 
-EnvironmentEngine sits at the heart of simulation systems, providing precise timing control for agent-environment interactions:
+Gears sits at the heart of simulation systems, providing precise timing control for agent-environment interactions:
 
 ```mermaid
 C4Context
-    title System Context diagram for EnvironmentEngine
+    title System Context diagram for Gears
 
     Person(developer, "Simulation Developer", "Developers building agent-environment systems")
 
     System_Boundary(simulation, "Simulation Environment") {
-        System(envengine, "EnvironmentEngine", "Precise timing control and job scheduling")
+        System(envengine, "Gears", "Precise timing control and job scheduling")
         System(agent, "Agent System (RxInfer)", "Intelligent agents that plan and act")
         System(environment, "Environment (User defined)", "Simulated world that agents interact with")
     }
@@ -25,15 +25,15 @@ C4Context
 
 ## Level 2: Container Architecture
 
-EnvironmentEngine is organized into several key containers, each with specific responsibilities:
+Gears is organized into several key containers, each with specific responsibilities:
 
 ```mermaid
 C4Container
-    title Container diagram for EnvironmentEngine
+    title Container diagram for Gears
 
-    Person(developer, "Simulation Developer", "Developers using EnvironmentEngine")
+    Person(developer, "Simulation Developer", "Developers using Gears")
 
-    Container_Boundary(envengine, "EnvironmentEngine Package") {
+    Container_Boundary(envengine, "Gears Package") {
         Container(api, "Public API", "Julia Module", "every(), for_next(), update!() functions")
         Container(scheduler, "Scheduler System", "Julia Module", "TickedScheduler and job coordination")
         Container(clock, "Clock System", "Julia Module", "MachineClock, VirtualClock time abstraction")
@@ -47,17 +47,17 @@ C4Container
     Rel(scheduler, jobs, "Executes", "Job progress")
 ```
 
-This level shows the main modules within EnvironmentEngine and how they interact. The Public API is the entry point, while the Scheduler coordinates between the Clock System and Job System.
+This level shows the main modules within Gears and how they interact. The Public API is the entry point, while the Scheduler coordinates between the Clock System and Job System.
 
 ## Level 3: Component Architecture
 
-The detailed component view shows how the different parts of EnvironmentEngine interact:
+The detailed component view shows how the different parts of Gears interact:
 
 ```mermaid
 C4Component
-    title Component diagram for EnvironmentEngine
+    title Component diagram for Gears
 
-    Container_Boundary(envengine, "EnvironmentEngine Package") {
+    Container_Boundary(envengine, "Gears Package") {
         Container_Boundary(api, "Public API") {
             Component(every_function, "every()", "Julia Function", "Job creation function")
             Component(for_next_function, "for_next()", "Julia Function", "Time loop function")
@@ -113,8 +113,8 @@ This level shows the detailed components within each container. The TickedSchedu
 ## Key Relationships
 
 ### System Context Level
-- **Simulation Developers** use EnvironmentEngine's simple API (`every()`, `for_next()`) to schedule tasks
-- **EnvironmentEngine** coordinates timing between agent planning and environment updates, enabling complex simulation scenarios
+- **Simulation Developers** use Gears's simple API (`every()`, `for_next()`) to schedule tasks
+- **Gears** coordinates timing between agent planning and environment updates, enabling complex simulation scenarios
 
 ### Container Level
 - **Public API** provides the main interface for users

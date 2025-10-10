@@ -1,20 +1,22 @@
 # [Sharp Bits](@id user-guide-sharp-bits)
 
-This section covers some of the work in progress in `EnvironmentEngine`.
+This section covers some of the work in progress in `Gears`.
 
 ## Job timing
 
 Let's look at the following pseudocode:
 
 ```julia
-using EnvironmentEngine
+using Gears
 
 clock = VirtualClock()
 scheduler = TickedScheduler(clock, 1ms)
 
 
 every(scheduler, 50ms) do dt
-    plan!(agent)
+    new_plan = plan(agent)
+    wait(scheduler, 10ms)
+    change_plan!(agent, new_plan)
 end
 
 every(scheduler, 5ms) do dt
@@ -38,7 +40,7 @@ Let's see at what this code is executing, and then let's look at what we would w
 Currently, when we are multithreading, the scheduler will wait until all jobs within a tick have been completed before advancing to the next tick. Let's look at the following code:
 
 ```julia
-using EnvironmentEngine
+using Gears
 
 clock = VirtualClock()
 scheduler = TickedScheduler(clock, 1ms)
@@ -72,7 +74,7 @@ We could solve this with a `blocking` keyword to the `every()` function, which w
 Currently, the scheduler will execute the jobs in the order they are scheduled. This means that, for the following code:
 
 ```@example sharp-bits-job-ordering-first
-using EnvironmentEngine
+using Gears
 
 clock = VirtualClock()
 scheduler = TickedScheduler(clock, 1ms)
@@ -95,7 +97,7 @@ end
 and the following code:
 
 ```@example sharp-bits-job-ordering-second
-using EnvironmentEngine
+using Gears
 
 clock = VirtualClock()
 scheduler = TickedScheduler(clock, 1ms)

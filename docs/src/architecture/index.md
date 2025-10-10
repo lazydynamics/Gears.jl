@@ -1,6 +1,6 @@
 # [Architecture Overview](@id architecture)
 
-EnvironmentEngine is designed around three core abstractions that work together to provide flexible task scheduling in simulation environments:
+Gears is designed around three core abstractions that work together to provide flexible task scheduling in simulation environments:
 
 ## Core Concepts
 
@@ -18,7 +18,7 @@ Schedulers manage when jobs should be executed, coordinating between the clock a
 
 ## Main Entry Points
 
-The primary way users interact with EnvironmentEngine is through the `every()` function, which creates different types of jobs:
+The primary way users interact with Gears is through the `every()` function, which creates different types of jobs:
 
 ### Job Types
 

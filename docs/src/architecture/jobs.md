@@ -2,7 +2,7 @@
 
 ## Overview
 
-Jobs represent the actual work to be performed in EnvironmentEngine. There are three types of jobs, each with different execution characteristics.
+Jobs represent the actual work to be performed in Gears. There are three types of jobs, each with different execution characteristics.
 
 ## Job Interface
 
@@ -13,7 +13,7 @@ progress!(job::Job, t::Quantity{<:Number, 𝐓})
 ```
 
 ```@docs
-EnvironmentEngine.progress!
+Gears.progress!
 ```
 
 ## Job Types

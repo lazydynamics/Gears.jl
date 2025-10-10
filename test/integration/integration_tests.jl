@@ -1,5 +1,5 @@
 @testitem "Integration test, simple example" begin
-    import EnvironmentEngine: VirtualClock, TickedScheduler, advance_time!, every, asap, now, MachineClock
+    import Gears: VirtualClock, TickedScheduler, advance_time!, every, asap, now, MachineClock
     import Base.Threads: Atomic, atomic_add!
 
     # Test state tracking structure
@@ -93,7 +93,7 @@
 end
 
 @testitem "Multithread TimedJob scheduling" begin
-    import EnvironmentEngine: TimedJob
+    import Gears: TimedJob
     using Base.Threads: Atomic, atomic_add!
     clock = VirtualClock()
     scheduler = TickedScheduler(clock, 5.0ms; threading = true)

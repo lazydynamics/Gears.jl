@@ -2,7 +2,7 @@
 
 ## Overview
 
-Clocks provide a unified interface for time abstraction in EnvironmentEngine. They allow you to work with either real system time or controllable virtual time for simulations.
+Clocks provide a unified interface for time abstraction in Gears. They allow you to work with either real system time or controllable virtual time for simulations.
 
 ## Clock Interface
 
@@ -18,20 +18,20 @@ now(clock::Clock) -> Quantity{<:Number, 𝐓}
 Uses system time for real-time simulations.
 
 ```@docs; canonical=false
-EnvironmentEngine.MachineClock
+Gears.MachineClock
 ```
 
 ### VirtualClock  
 Controllable time for deterministic simulations.
 
 ```@docs; canonical=false
-EnvironmentEngine.VirtualClock
+Gears.VirtualClock
 ```
 
 ## Usage Examples
 
 ```@example clocks
-using EnvironmentEngine
+using Gears
 
 
 # Real-time clock

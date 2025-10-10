@@ -1,5 +1,5 @@
 @testitem "Ticker" begin
-    import EnvironmentEngine: Ticker, advance_to!, progress!, can_tick, consume_tick!
+    import Gears: Ticker, advance_to!, progress!, can_tick, consume_tick!
     using Unitful
 
     ticker = Ticker(1.0u"s")
