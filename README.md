@@ -5,6 +5,9 @@
 [![Build Status](https://github.com/lazydynamics/Gears.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/lazydynamics/Gears.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/lazydynamics/Gears.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/lazydynamics/Gears.jl)
 [![Aqua](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
+<p align="left">
+  <img src="logo.png" alt="Gears Logo" height="128">
+</p>
 
 A Julia package for scheduling tasks in simulation environments with precise timing control.
 
