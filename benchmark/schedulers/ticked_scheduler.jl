@@ -10,9 +10,8 @@ function benchmark_ticked_scheduler()
     suite = BenchmarkGroup()
 
     # Empty scheduler operations (baseline)
-    suite["update_empty"] = @benchmarkable update!(scheduler) setup = (
-        clock = VirtualClock(); scheduler = TickedScheduler(clock, 1ms)
-    )
+    suite["update_empty"] = @benchmarkable update!(scheduler) setup =
+        (clock = VirtualClock(); scheduler = TickedScheduler(clock, 1ms))
 
     # Scheduler update with varying job counts
     for job_count in [1, 10, 100, 1000]
