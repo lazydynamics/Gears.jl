@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Job Types · Gears.jl</title><meta name="title" content="Job Types · Gears.jl"/><meta property="og:title" content="Job Types · Gears.jl"/><meta property="twitter:title" content="Job Types · Gears.jl"/><meta name="description" content="Documentation for Gears.jl."/><meta property="og:description" content="Documentation for Gears.jl."/><meta property="twitter:description" content="Documentation for Gears.jl."/><meta property="og:url" content="https://lazydynamics.github.io/Gears.jl/tutorials/job_types/"/><meta property="twitter:url" content="https://lazydynamics.github.io/Gears.jl/tutorials/job_types/"/><link rel="canonical" href="https://lazydynamics.github.io/Gears.jl/tutorials/job_types/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">Gears.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../quickstart/">Quick Start</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../">Overview</a></li><li><a class="tocitem" href="../basic_scheduling/">Basic Scheduling</a></li><li><a class="tocitem" href="../clocks_and_time/">Clocks and Time</a></li><li><a class="tocitem" href="../schedulers/">Schedulers</a></li><li class="is-active"><a class="tocitem" href>Job Types</a><ul class="internal"><li><a class="tocitem" href="#Job-Types-Overview"><span>Job Types Overview</span></a></li><li><a class="tocitem" href="#Timed-Jobs"><span>Timed Jobs</span></a></li><li><a class="tocitem" href="#ASAP-Jobs"><span>ASAP Jobs</span></a></li><li><a class="tocitem" href="#Event-Jobs"><span>Event Jobs</span></a></li><li><a class="tocitem" href="#Combining-Job-Types"><span>Combining Job Types</span></a></li><li><a class="tocitem" href="#Common-Pattern"><span>Common Pattern</span></a></li><li><a class="tocitem" href="#Next-Steps"><span>Next Steps</span></a></li></ul></li><li><a class="tocitem" href="../threading/">Threading</a></li></ul></li><li><span class="tocitem">User Guide</span><ul><li><a class="tocitem" href="../../user_guide/">Overview</a></li><li><a class="tocitem" href="../../user_guide/api_reference/">API Reference</a></li><li><a class="tocitem" href="../../user_guide/sharp_bits/">Sharp Bits</a></li></ul></li><li><span class="tocitem">Architecture</span><ul><li><a class="tocitem" href="../../architecture/">Overview</a></li><li><a class="tocitem" href="../../architecture/c4_model/">C4 Model</a></li><li><a class="tocitem" href="../../architecture/clocks/">Clocks</a></li><li><a class="tocitem" href="../../architecture/schedulers/">Schedulers</a></li><li><a class="tocitem" href="../../architecture/jobs/">Jobs</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Tutorials</a></li><li class="is-active"><a href>Job Types</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Job Types</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/lazydynamics/Gears.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/lazydynamics/Gears.jl/blob/main/docs/src/tutorials/job_types.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="tutorial-job-types"><a class="docs-heading-anchor" href="#tutorial-job-types">Job Types</a><a id="tutorial-job-types-1"></a><a class="docs-heading-anchor-permalink" href="#tutorial-job-types" title="Permalink"></a></h1><p>Jobs represent the actual work to be performed in <code>Gears</code>. They are the atomic building blocks created with the <code>every()</code> function. On this page we will cover the creation of different types of jobs.</p><h2 id="Job-Types-Overview"><a class="docs-heading-anchor" href="#Job-Types-Overview">Job Types Overview</a><a id="Job-Types-Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Job-Types-Overview" title="Permalink"></a></h2><p>Currently, <code>Gears</code> supports the following job types:</p><ol><li><strong>Timed Jobs</strong> - Execute at regular intervals</li><li><strong>ASAP Jobs</strong> - Execute as soon as possible (on every tick)</li><li><strong>Event Jobs</strong> - Execute when data arrives on a channel</li></ol><h2 id="Timed-Jobs"><a class="docs-heading-anchor" href="#Timed-Jobs">Timed Jobs</a><a id="Timed-Jobs-1"></a><a class="docs-heading-anchor-permalink" href="#Timed-Jobs" title="Permalink"></a></h2><p>Timed jobs execute at regular intervals. They&#39;re perfect for periodic tasks like sensor readings, data collection or environment updates.</p><h3 id="Basic-Timed-Jobs"><a class="docs-heading-anchor" href="#Basic-Timed-Jobs">Basic Timed Jobs</a><a id="Basic-Timed-Jobs-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Timed-Jobs" title="Permalink"></a></h3><pre><code class="language-julia hljs">using Gears
+
+clock = VirtualClock()
+scheduler = TickedScheduler(clock, 10ms)
+
+# Execute every 100 milliseconds
+every(scheduler, 100ms) do dt
+    println(&quot;Timed job executed&quot;)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Gears.TimedJob{Main.var&quot;#2#3&quot;, Unitful.Quantity{Float64, 𝐓, Unitful.FreeUnits{(s,), 𝐓, nothing}}}(Main.var&quot;#2#3&quot;(), Gears.Ticker{Unitful.Quantity{Float64, 𝐓, Unitful.FreeUnits{(s,), 𝐓, nothing}}}(0.1 s, 0.0 s, 0.0 s))</code></pre><p>Timed jobs require the <code>dt</code> parameter to be passed to the job body. This parameter represents the time interval between executions. It is also possible to pass a function to the <code>every()</code> function directly:</p><pre><code class="language-julia hljs">function timed_job(dt)
+    println(&quot;Timed job executed&quot;)
+end
+
+every(timed_job, scheduler, 100ms)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Gears.TimedJob{typeof(Main.timed_job), Unitful.Quantity{Float64, 𝐓, Unitful.FreeUnits{(s,), 𝐓, nothing}}}(Main.timed_job, Gears.Ticker{Unitful.Quantity{Float64, 𝐓, Unitful.FreeUnits{(s,), 𝐓, nothing}}}(0.1 s, 0.0 s, 0.0 s))</code></pre><h2 id="ASAP-Jobs"><a class="docs-heading-anchor" href="#ASAP-Jobs">ASAP Jobs</a><a id="ASAP-Jobs-1"></a><a class="docs-heading-anchor-permalink" href="#ASAP-Jobs" title="Permalink"></a></h2><p>ASAP (As Soon As Possible) jobs run whenever the scheduler ticks. They&#39;re perfect for tasks that need to be executed as often as possible.</p><div class="admonition is-info" id="Note-a6a5b0bf9c32a6f2"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-a6a5b0bf9c32a6f2" title="Permalink"></a></header><div class="admonition-body"><p>This behavior of <code>AsapJob</code> is different than desired. Ideally we would want an <code>AsapJob</code> to fire whenever it is not already running (e.g. start planning as soon as the previous planning is finished). This functionality is significantly more challenging, and more info can be found in the <a href="../../user_guide/sharp_bits/#user-guide-sharp-bits">Sharp Bits</a> section.</p></div></div><p>ASAP jobs do not require any additional arguments to be passed to the job body, and can be created by passing the <code>asap</code> constant to the <code>every()</code> function.</p><pre><code class="language-julia hljs"># Execute as soon as possible
+every(scheduler, asap) do
+    println(&quot;ASAP job executedj&quot;)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Gears.AsapJob{Main.var&quot;#5#6&quot;}(Main.var&quot;#5#6&quot;(), Base.Threads.Atomic{Bool}(false))</code></pre><h2 id="Event-Jobs"><a class="docs-heading-anchor" href="#Event-Jobs">Event Jobs</a><a id="Event-Jobs-1"></a><a class="docs-heading-anchor-permalink" href="#Event-Jobs" title="Permalink"></a></h2><p>Event jobs execute when data arrives on a <a href="https://docs.julialang.org/en/v1/manual/asynchronous-programming/">Channel</a>. They&#39;re perfect for reactive programming and handling asynchronous events.</p><h3 id="Basic-Event-Jobs"><a class="docs-heading-anchor" href="#Basic-Event-Jobs">Basic Event Jobs</a><a id="Basic-Event-Jobs-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Event-Jobs" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Create a channel for events
+events = Channel{String}(Inf)
+
+clock = VirtualClock()
+scheduler = TickedScheduler(clock, 10ms)
+
+# Schedule job to run when events arrive
+every(scheduler, events) do event
+    println(&quot;Event processed at $(now(clock)): $event&quot;)
+end
+
+# Send some events
+put!(events, &quot;Hello&quot;)
+put!(events, &quot;World&quot;)
+advance_time!(clock, 10ms)
+update!(scheduler)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Event processed at 0.01 s: Hello
+Event processed at 0.01 s: World</code></pre><h2 id="Combining-Job-Types"><a class="docs-heading-anchor" href="#Combining-Job-Types">Combining Job Types</a><a id="Combining-Job-Types-1"></a><a class="docs-heading-anchor-permalink" href="#Combining-Job-Types" title="Permalink"></a></h2><p>You can mix different job types in the same application:</p><pre><code class="language-julia hljs">using Gears
+
+clock = VirtualClock()
+scheduler = TickedScheduler(clock, 10ms)
+
+# Create channels for different event types
+sensor_data = Channel{Float64}(Inf)
+alerts = Channel{String}(Inf)
+
+# Timed job: Read sensor every 50ms
+every(scheduler, 50ms) do dt
+    reading = rand() * 100
+    put!(sensor_data, reading)
+end
+
+# Event job: Process sensor data
+every(scheduler, sensor_data) do data
+    if data &gt; 80
+        put!(alerts, &quot;High reading: $data&quot;)
+    end
+end
+
+# Event job: Handle alerts
+every(scheduler, alerts) do alert
+    println(&quot;ALERT: $alert&quot;)
+end
+
+# ASAP job: Check for a condition
+every(scheduler, asap) do
+    if rand() &lt; 0.1
+        println(&quot;Low random number detected!&quot;)
+    end
+end
+
+# Run the system
+for_next(clock, 1s) do
+    update!(scheduler)
+    advance_time!(clock, 10ms)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Low random number detected!
+Low random number detected!
+ALERT: High reading: 82.28160950902583
+Low random number detected!
+Low random number detected!
+Low random number detected!
+Low random number detected!
+Low random number detected!
+Low random number detected!
+ALERT: High reading: 81.05082834499431
+Low random number detected!
+Low random number detected!
+Low random number detected!
+Low random number detected!
+ALERT: High reading: 97.80434415405914
+Low random number detected!
+Low random number detected!
+ALERT: High reading: 80.00194672126383
+ALERT: High reading: 95.68404272093079
+ALERT: High reading: 86.6257947539583
+Low random number detected!</code></pre><h2 id="Common-Pattern"><a class="docs-heading-anchor" href="#Common-Pattern">Common Pattern</a><a id="Common-Pattern-1"></a><a class="docs-heading-anchor-permalink" href="#Common-Pattern" title="Permalink"></a></h2><h3 id="Producer-Consumer-Pattern"><a class="docs-heading-anchor" href="#Producer-Consumer-Pattern">Producer-Consumer Pattern</a><a id="Producer-Consumer-Pattern-1"></a><a class="docs-heading-anchor-permalink" href="#Producer-Consumer-Pattern" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Producer: Generate data
+every(50ms) do dt
+    data = generate_data()
+    put!(data_channel, data)
+end
+
+# Consumer: Process data
+every(data_channel) do data
+    process_data(data)
+end</code></pre><h2 id="Next-Steps"><a class="docs-heading-anchor" href="#Next-Steps">Next Steps</a><a id="Next-Steps-1"></a><a class="docs-heading-anchor-permalink" href="#Next-Steps" title="Permalink"></a></h2><p>Now that you understand the different job types, learn about:</p><ul><li><a href="../threading/#tutorial-threading">Threading</a> - Run jobs in parallel</li></ul><script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+mermaid.initialize({
+    startOnLoad: true,
+    theme: "neutral"
+});
+</script></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../schedulers/">« Schedulers</a><a class="docs-footer-nextpage" href="../threading/">Threading »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Tuesday 14 October 2025 07:42">Tuesday 14 October 2025</span>. Using Julia version 1.12.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
