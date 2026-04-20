@@ -68,15 +68,18 @@ end
 for_next(clock, 1s) do
     update!(scheduler)
     advance_time!(clock, 10ms)
-end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Low random number detected!
-ALERT: High reading: 83.13538428695253
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">ALERT: High reading: 91.18346619110358
+Low random number detected!
+Low random number detected!
+ALERT: High reading: 92.14032408473322
+Low random number detected!
+Low random number detected!
+ALERT: High reading: 84.32904546446626
+ALERT: High reading: 90.75302911120458
 Low random number detected!
 Low random number detected!
 Low random number detected!
-ALERT: High reading: 99.8236767320411
-Low random number detected!
-Low random number detected!
-ALERT: High reading: 87.47137094939494</code></pre><h2 id="Common-Pattern"><a class="docs-heading-anchor" href="#Common-Pattern">Common Pattern</a><a id="Common-Pattern-1"></a><a class="docs-heading-anchor-permalink" href="#Common-Pattern" title="Permalink"></a></h2><h3 id="Producer-Consumer-Pattern"><a class="docs-heading-anchor" href="#Producer-Consumer-Pattern">Producer-Consumer Pattern</a><a id="Producer-Consumer-Pattern-1"></a><a class="docs-heading-anchor-permalink" href="#Producer-Consumer-Pattern" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Producer: Generate data
+Low random number detected!</code></pre><h2 id="Common-Pattern"><a class="docs-heading-anchor" href="#Common-Pattern">Common Pattern</a><a id="Common-Pattern-1"></a><a class="docs-heading-anchor-permalink" href="#Common-Pattern" title="Permalink"></a></h2><h3 id="Producer-Consumer-Pattern"><a class="docs-heading-anchor" href="#Producer-Consumer-Pattern">Producer-Consumer Pattern</a><a id="Producer-Consumer-Pattern-1"></a><a class="docs-heading-anchor-permalink" href="#Producer-Consumer-Pattern" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Producer: Generate data
 every(50ms) do dt
     data = generate_data()
     put!(data_channel, data)
@@ -90,4 +93,4 @@ mermaid.initialize({
     startOnLoad: true,
     theme: "neutral"
 });
-</script></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../schedulers/">« Schedulers</a><a class="docs-footer-nextpage" href="../threading/">Threading »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Monday 20 April 2026 07:56">Monday 20 April 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</script></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../schedulers/">« Schedulers</a><a class="docs-footer-nextpage" href="../threading/">Threading »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Monday 20 April 2026 08:00">Monday 20 April 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
