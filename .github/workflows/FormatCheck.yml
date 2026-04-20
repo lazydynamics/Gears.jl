@@ -27,7 +27,7 @@ jobs:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
       - uses: julia-actions/setup-julia@v3
-      - uses: julia-actions/cache@v2
+      - uses: julia-actions/cache@v3
       
       # Find existing format PR if any
       - name: Find existing format PR
